@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title film.nom %}
+
+{% block body %}
+	<div class="container mt-4">
+        <h1>Editer le film</h1>
+        {{ include('admin/film/_form.html.twig', {button: 'Editer' }) }}
+    </div>
+{% endblock %}
