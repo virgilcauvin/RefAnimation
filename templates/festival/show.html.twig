@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title festivals.nom %}
+
+{% block body %}
+	<div class="jumbotron">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					{% if festivals.filename %}
+						<img src="{{ vich_uploader_asset(festivals, 'imageFile') | imagine_filter('medium') }}" alt="card-img-top" style="width: 100%; height:auto;">
+					{% else %}
+						<img src="{{ '/images/festivals/empty.jpg' | imagine_filter('medium') }}" alt="card-img-top" style="width: 100%; height:auto;">
+					{% endif %}
+				</div>
+				<div class="col-md-4">
+					<h1>{{ festivals.nom }}</h1>
+					<h3>{{ festivals.ville }}</h3>
+					<h3>{{ festivals.pays }}</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container mt-4">
+		<p>Description :
+			{{ festivals.description }}</p>
+		<p>Année de lancement :
+			{{ festivals.anneeLancement }}</p>
+		<p>Fréquence :
+			{% if festivals.frequence > 1 %}
+				tout les
+				{{ festivals.frequence }}
+				ans
+			{% else %}
+				tout les ans
+			{% endif %}
+		</p>
+		<p>Site officiel :
+			<a href="{{ festivals.lien }}" target="_blank">{{ festivals.lien }}</a>
+		</p>
+		<div>
+			<p>Editions de l'événement :
+			</p>
+			<div class="container">
+				<div class="row flex">
+					{% for edition in festivals.editionFestivals %}
+						<div class="col-3">
+							<div class="card">
+								{% if edition.filename %}
+									<img src="{{ vich_uploader_asset(edition, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+								{% else %}
+									<img src="{{ '/images/editions/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+								{% endif %}
+
+								<div class="card-body">
+									<h5 class="card-title">
+										<a href="{{ path('editionFestival.show', {id: edition.id, slug: edition.slug}) }}">{{ edition.dateDebut | date('Y') }}</a>
+									</h5>
+									<div class="text-primary">
+										- Ville :
+										{{ edition.ville }}
+									</div>
+									<div class="text-primary">
+										- Pays :
+										{{ edition.pays }}
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>>
+		</div>
+	</div>
+{% endblock %}

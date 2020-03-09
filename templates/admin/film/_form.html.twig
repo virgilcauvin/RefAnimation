@@ -1,4 +1,37 @@
 {{ form_start(form) }}
-        {{ form_rest(form) }}
-        <button class="btn btn-primary">{{ button|default('Enregistrer')}}</button>
-        {{ form_end(form) }}
+<div>
+	{{ form_label(form.nom) }}
+	{{ form_widget(form.nom) }}
+	{{ form_errors(form.nom) }}
+</div>
+<div>
+	{{ form_label(form.description) }}
+	{{ form_widget(form.description) }}
+	{{ form_errors(form.description) }}
+</div>
+<div>
+	{{ form_label(form.duree) }}
+	{{ form_widget(form.duree) }}
+	{{ form_errors(form.duree) }}
+</div>
+<div>
+	{{ form_label(form.date) }}
+	{{ form_widget(form.date) }}
+	{{ form_errors(form.date) }}
+</div>
+	<div id="categorie">
+		{{ form_label(form.categories) }}
+		{{ form_widget(form.categories) }}
+		{{ form_errors(form.categories) }}
+	</div>
+	<div>
+		{{ form_label(form.festivals) }}
+		{{ form_widget(form.festivals) }}
+		{{ form_errors(form.festivals) }}
+	</div>
+	<div
+		class="mt-2">
+		{{ form_rest(form) }}
+		<button class="btn btn-primary">{{ button|default('Enregistrer')}}</button>
+	</div>
+	{{ form_end(form) }}

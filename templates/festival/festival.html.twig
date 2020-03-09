@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste FESTIVALS !
+{% endblock %}
+
+{% block body %}
+	<div class="jumbotron text-center">
+		<h1>Liste Festivals !</h1>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque porro illo saepe quaerat fugit reiciendis quia facilis placeat, iste ullam repellat molestias, officiis tenetur quidem dolor non. Rem, error natus!</p>
+	</div>
+
+	<div class="container">
+		<div class="row flex">
+			{% for festival in festivals %}
+				<div class="col-3">
+					<div class="card">
+						{% if festival.filename %}
+							<img src="{{ vich_uploader_asset(festival, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+						{% else %}
+							<img src="{{ '/images/festivals/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+						{% endif %}
+
+						<div class="card-body">
+							<h5 class="card-title">
+								<a href="{{ path('festival.show', {id: festival.id, slug: festival.slug}) }}">{{ festival.nom }}</a>
+							</h5>
+							<p class="card-text">{{ festival.description | slice(0,50) }}...</p>
+							<div class="text-primary">
+								- Ville : {{ festival.ville }}
+							</div>
+							<div class="text-primary">
+								- Pays : {{ festival.pays }}
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

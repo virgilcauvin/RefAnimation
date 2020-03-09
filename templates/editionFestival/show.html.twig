@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title editionFestivals.id %}
+
+{% block body %}
+	<div class="jumbotron">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					{% if editionFestivals.filename %}
+						<img src="{{ vich_uploader_asset(editionFestivals, 'imageFile') | imagine_filter('medium') }}" alt="card-img-top" style="width: 100%; height:auto;">
+					{% else %}
+						<img src="{{ '/images/editions/empty.jpg' | imagine_filter('medium') }}" alt="card-img-top" style="width: 100%; height:auto;">
+					{% endif %}
+				</div>
+				<div class="col-md-4">
+					<h1>{{ editionFestivals.id }}</h1>
+					<h3>{{ editionFestivals.ville }}</h3>
+					<h3>{{ editionFestivals.pays }}</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container mt-4">
+		<p>Dates :
+			du {{ editionFestivals.dateDebut | date('d-m-Y') }} au {{ editionFestivals.dateFin | date('d-m-Y')}}</p>
+		<p>Nombre de jours :
+			{{ editionFestivals.NbJour }}</p>
+		</p>
+		<p>Nombre de lieux de projections :
+			{{ editionFestivals.NbLieuProjection }}</p>
+		</p>
+		{# <p>Site officiel : <a href="{{ editionFestivals.lien }}" target="_blank">{{ editionFestivals.lien }}</a></p> #}
+	</div>
+{% endblock %}

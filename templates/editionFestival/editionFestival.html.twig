@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste FESTIVALS !
+{% endblock %}
+
+{% block body %}
+	<div class="jumbotron text-center">
+		<h1>Liste des editions de Festivals !</h1>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque porro illo saepe quaerat fugit reiciendis quia facilis placeat, iste ullam repellat molestias, officiis tenetur quidem dolor non. Rem, error natus!</p>
+	</div>
+
+	<div class="container">
+		<div class="row flex">
+			{% for edition in editionFestivals %}
+				<div class="col-3">
+					<div class="card">
+						{% if edition.filename %}
+							<img src="{{ vich_uploader_asset(edition, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+						{% else %}
+							<img src="{{ '/images/editions/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+						{% endif %}
+
+						<div class="card-body">
+							<h5 class="card-title">
+								<a href="{{ path('editionFestival.show', {id: edition.id, slug: edition.slug}) }}">{{ edition.id }}</a>
+							</h5>
+							<p>{{ edition.dateDebut | date('Y') }}</p>
+							{# <p class="card-text">{{ edition.description | slice(0,50) }}...</p> #}
+							<div class="text-primary">
+								- Ville : {{ edition.ville }}
+							</div>
+							<div class="text-primary">
+								- Pays : {{ edition.pays }}
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

@@ -19,6 +19,17 @@ class FestivalRepository extends ServiceEntityRepository
         parent::__construct($registry, Festival::class);
     }
 
+    /**
+     * @return Festival[]
+     */
+    public function findLatest(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.updated_at', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Festival[] Returns an array of Festival objects
     //  */

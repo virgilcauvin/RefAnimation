@@ -3,12 +3,15 @@
 namespace App\Form;
 
 use App\Entity\Film;
+use App\Entity\Langue;
 use App\Entity\Festival;
 use App\Entity\Categorie;
+use App\Entity\PublicCible;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class FilmType extends AbstractType
 {
@@ -19,9 +22,18 @@ class FilmType extends AbstractType
             ->add('description')
             ->add('duree')
             ->add('date')
+            ->add('realisateur')
+            ->add('annee_de_production')
+            ->add('duree_de_production')
+            ->add('lien_video')
+            ->add('traduit_fr')
+            ->add('soustitres_fr')
+            ->add('imageFile', FileType::class, ['required' => false])
             //->add('created_at')
-            ->add('categorie',EntityType::class,['class'=>Categorie::class,'mapped'=>false,'label'=>'Categorie : ','choice_label'=>'nom'])
-            ->add('festival',EntityType::class,['class'=>Festival::class,'mapped'=>false,'label'=>'Festival : ','choice_label'=>'nom'])
+            ->add('langues',EntityType::class,['class'=>Langue::class,'choice_label'=>'nom', 'multiple' => true, 'required' => false])
+            ->add('public_cibles',EntityType::class,['class'=>PublicCible::class,'choice_label'=>'nom', 'multiple' => true, 'expanded' => true, 'required' => false])
+            ->add('categories',EntityType::class,['class'=>Categorie::class,'choice_label'=>'nom', 'multiple' => true, 'required' => false])
+            ->add('festivals',EntityType::class,['class'=>Festival::class,'choice_label'=>'nom', 'multiple' => true, 'required' => false])
         ;
     }
 

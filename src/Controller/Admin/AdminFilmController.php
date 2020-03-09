@@ -6,9 +6,9 @@ use App\Entity\Film;
 use App\Form\FilmType;
 use App\Repository\FilmRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
 class AdminFilmController extends AbstractController
 {
@@ -16,25 +16,26 @@ class AdminFilmController extends AbstractController
     /**
      * @Var FilmRepository
      */
-    private $repository;
+    private $FilmRepo;
 
     /**
      * @Var EntityManagerInterface
      */
     private $em;
 
-    public function __construct(FilmRepository $repository, EntityManagerInterface $em)
+
+    public function __construct(FilmRepository $FilmRepo, EntityManagerInterface $em)
     {
-        $this->repository = $repository;
+        $this->FilmRepo = $FilmRepo;
         $this->em = $em;
     }
 
     /**
-     * @Route("/admin", name="admin.film.index")
+     * @Route("/admin/film", name="admin.film.index")
      */
     public function index()
     {
-        $films = $this->repository->findAll();
+        $films = $this->FilmRepo->findAll();
         return $this->render('admin/film/index.html.twig', [
             'controller_name' => 'AdminFilmController',
             'films' => $films
@@ -47,6 +48,7 @@ class AdminFilmController extends AbstractController
     public function new(Request $request)
     {
         $film = new Film();
+        $film->setUpdatedAt(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
         $form = $this->createForm(FilmType::class, $film);
         $form->handleRequest($request);
 
@@ -65,12 +67,14 @@ class AdminFilmController extends AbstractController
     /**
      * @Route("/admin/film/{id}", name="admin.film.edit", methods="GET|POST")
      */
-    public function edit(Film $film, Request $request)
+    public function edit(Film $film, Request $request, $id)
     {
+        $film = $this->FilmRepo->find($id);
         $form = $this->createForm(FilmType::class, $film);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $film->setUpdatedAt(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
             $this->em->flush();
             $this->addFlash('success', 'Le film a bien été modifié !');
             return $this->redirectToRoute('admin.film.index');
@@ -86,9 +90,9 @@ class AdminFilmController extends AbstractController
      */
     public function delete(Film $film, Request $request)
     {
-            $this->em->remove($film);
-            $this->em->flush(); 
-            $this->addFlash('success', 'Le film a bien été supprimé !');
+         $this->em->remove($film);
+         $this->em->flush();  
+        $this->addFlash('success', 'Le film a bien été supprimé !');
         return $this->redirectToRoute('admin.film.index');
     }
 }

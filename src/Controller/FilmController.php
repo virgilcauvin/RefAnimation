@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Film;
 use App\Repository\FilmRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,9 +14,9 @@ class FilmController extends AbstractController
      */
     private $repository;
 
-    public function __construct(FilmRepository $repository)
+    public function __construct(FilmRepository $filmRepository)
     {
-        $this->repository = $repository;
+        $this->filmRepository = $filmRepository;
     }
 
     /**
@@ -25,9 +24,10 @@ class FilmController extends AbstractController
      */
     public function index()
     {
-        $this->repository->findAll();
+        $films = $this->filmRepository->findAll();
         return $this->render('film/film.html.twig', [
-            'current_menu' => 'properties',
+            'current_menu' => 'film',
+            'films'=> $films
         ]);
     }
 
@@ -36,10 +36,11 @@ class FilmController extends AbstractController
      */
     public function show($slug, $id)
     {
-        $films = $this->repository->find($id);
+        $films = $this->filmRepository->find($id);
         return $this->render('film/show.html.twig', [
-            'current_menu' => 'properties',
-            'films' => $films
+            'current_menu' => 'film',
+            'films' => $films,
+
         ]);
     }
 }

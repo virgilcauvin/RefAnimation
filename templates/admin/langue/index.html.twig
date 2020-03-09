@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer les langues
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Gérer les langues</h1>
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+			
+		{% endfor %}
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Titre</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for langue in langues %}
+					<tr>
+						<td>{{ langue.nom }}</td>
+						<td>
+                            <a href="{{ path('admin.langue.edit', {id: langue.id}) }}" class="btn btn-secondary">Editer</a>
+							<form method="post" action="{{ path('admin.langue.delete', {id: langue.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer {{ langue.nom }} ?')" style="display: inline-block">
+								<input type="hidden" name="_method" value="DELETE">
+								<button class="btn btn-danger">Supprimer</button>
+							</form>
+                        </td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="text-right">
+			<a href="{{ path('admin.langue.new') }}" class="btn btn-primary">Ajouter une nouvelle catégorie</a>
+		</div>
+	</div>
+{% endblock %}

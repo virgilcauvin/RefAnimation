@@ -6,9 +6,17 @@
 	<div class="jumbotron">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-8"></div>
+				<div class="col-md-8">
+					{% if films.filename %}
+						<img src="{{ vich_uploader_asset(films, 'imageFile') | imagine_filter('medium') }}" alt="card-img-top" style="width: 100%; height:auto;">
+					{% else %}
+						<img src="{{ '/images/films/empty.jpg' | imagine_filter('medium') }}" alt="card-img-top" style="width: 100%; height:auto;">
+					{% endif %}
+				</div>
 				<div class="col-md-4">
 					<h1>{{ films.nom }}</h1>
+					<h3>Realisateur :
+						{{ films.realisateur }}</h3>
 					<h3>Sortie :
 						{{films.date}}</h3>
 					<h3>Durée :
@@ -19,6 +27,66 @@
 		</div>
 	</div>
 	<div class="container mt-4">
-		<p>{{ films.description }}</p>
+		<p>Description :
+			{{ films.description }}</p>
+		<p>Année de production :
+			{{ films.anneeDeProduction }}</p>
+		<p>Durée de production : {{ films.dureeDeProduction }} ans</p>
+		<div>
+			<p>Bande Annonce :</p>
+			{{ films.lienVideo | raw}}
+		</div>
+		{% if films.traduitFr %}
+			<p>Existe en français</p>
+		{% endif %}
+		{% if films.soustitresFr %}
+			<p>Sous-titre en français</p>
+		{% endif %}
+	</div>
+	<div class="container mt-4">
+		{% if films.festivals is not empty%}
+			<p>Festivals :</p>
+			<ul>
+				{% for festival in films.festivals %}
+					<li><a href="{{ path('festival.show', {id: festival.id, slug: festival.slug}) }}">{{ festival.nom }}</a></li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<p>Ce film n'a pas encore été associé à des féstivals !</p>
+		{% endif %}
+
+		{% if films.categories is not empty%}
+			<p>Catégories :</p>
+			<ul>
+				{% for categorie in films.categories %}
+					<li>{{ categorie.nom }}</li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<p>Ce film n'a pas encore été associé à des catégories !</p>
+		{% endif %}
+
+
+		{% if films.langues is not empty%}
+			<p>langues :</p>
+			<ul>
+				{% for langue in films.langues %}
+					<li>{{ langue.nom }}</li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<p>Ce film n'a pas encore été associé à des langues !</p>
+		{% endif %}
+
+		{% if films.publicCibles is not empty%}
+			<p>Public cibles :</p>
+			<ul>
+				{% for public_cible in films.publicCibles %}
+					<li>{{ public_cible.nom }}</li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<p>Ce film n'a pas encore été associé à des publics cibles !</p>
+		{% endif %}
 	</div>
 {% endblock %}

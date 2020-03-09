@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title langue.nom %}
+
+{% block body %}
+	<div class="container mt-4">
+        <h1>Editer la langue</h1>
+        {{ include('admin/langue/_form.html.twig', {button: 'Editer' }) }}
+    </div>
+{% endblock %}

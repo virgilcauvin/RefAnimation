@@ -8,4 +8,34 @@
 		<h1>Liste Films !</h1>
 		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque porro illo saepe quaerat fugit reiciendis quia facilis placeat, iste ullam repellat molestias, officiis tenetur quidem dolor non. Rem, error natus!</p>
 	</div>
+
+	<div class="container">
+		<div class="row flex">
+			{% for film in films %}
+				<div class="col-3">
+					<div class="card">
+						{% if film.filename %}
+							<img src="{{ vich_uploader_asset(film, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+						{% else %}
+							<img src="{{ '/images/films/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+						{% endif %}
+
+						<div class="card-body">
+							<h5 class="card-title">
+								<a href="{{ path('film.show', {id: film.id, slug: film.slug}) }}">{{ film.nom }}</a>
+							</h5>
+							<p class="card-text">{{ film.description | slice(0,50) }}...</p>
+							<div class="text-primary">
+								- Durée : {{ film.duree }}
+								min
+							</div>
+							<div class="text-primary">
+								- Sortie : {{ film.date }}
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}

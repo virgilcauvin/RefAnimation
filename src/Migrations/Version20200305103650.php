@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200220131636 extends AbstractMigration
+final class Version20200305103650 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,9 +22,8 @@ final class Version20200220131636 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE categorie_film (categorie_id INT NOT NULL, film_id INT NOT NULL, INDEX IDX_F56D3975BCF5E72D (categorie_id), INDEX IDX_F56D3975567F5183 (film_id), PRIMARY KEY(categorie_id, film_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('ALTER TABLE categorie_film ADD CONSTRAINT FK_F56D3975BCF5E72D FOREIGN KEY (categorie_id) REFERENCES categorie (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE categorie_film ADD CONSTRAINT FK_F56D3975567F5183 FOREIGN KEY (film_id) REFERENCES film (id) ON DELETE CASCADE');
+        $this->addSql('CREATE TABLE edition_festival (id INT AUTO_INCREMENT NOT NULL, festival_id INT DEFAULT NULL, date_debut DATE DEFAULT NULL, date_fin DATE DEFAULT NULL, nb_jour INT DEFAULT NULL, ville VARCHAR(255) DEFAULT NULL, pays VARCHAR(255) DEFAULT NULL, nb_lieu_projection INT DEFAULT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX IDX_4B6BFBDC8AEBAF57 (festival_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE edition_festival ADD CONSTRAINT FK_4B6BFBDC8AEBAF57 FOREIGN KEY (festival_id) REFERENCES festival (id)');
     }
 
     public function down(Schema $schema) : void
@@ -32,6 +31,6 @@ final class Version20200220131636 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE categorie_film');
+        $this->addSql('DROP TABLE edition_festival');
     }
 }

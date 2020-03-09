@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Gérer</h1>
+		<div>
+            <a href="{{ path('admin.film.index') }}">Films</a>
+        </div>
+		<div>
+			<a href="{{ path('admin.categorie.index') }}">Catégories</a>
+		</div>
+		<div>
+			<a href="{{ path('admin.festival.index') }}">Festivals</a>
+		</div>
+		<div>
+			<a href="{{ path('admin.public_cible.index') }}">Publics cibles</a>
+		</div>
+		<div>
+			<a href="{{ path('admin.langue.index') }}">langues</a>
+		</div>
+		<div>
+			<a href="{{ path('admin.typeFestival.index') }}">Type de festivals</a>
+		</div>
+		<div>
+			<a href="{{ path('admin.editionFestival.index') }}">Edition de festivals</a>
+		</div>
+	</div>
+{% endblock %}

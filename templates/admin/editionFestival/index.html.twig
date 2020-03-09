@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer les catégories
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Gérer les éditions du festival : {{ festival.nom }}</h1>
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+			
+		{% endfor %}
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Titre</th>
+					<th>Actions</th>
+					<th>Mise à jour</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for editionFestival in editionFestivals %}
+					<tr>
+						{# <td>{{ festival.nom }}</td> #}
+						<td>{{ editionFestival.id }}</td>
+						<td>
+                            <a href="{{ path('admin.editionFestival.edit', {id: editionFestival.id}) }}" class="btn btn-secondary">Editer</a>
+							<form method="post" action="{{ path('admin.editionFestival.delete', {id: editionFestival.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer {{ editionFestival.id }} ?')" style="display: inline-block">
+								<input type="hidden" name="_method" value="DELETE">
+								<button class="btn btn-danger">Supprimer</button>
+							</form>
+                        </td>
+						<td>{{ editionFestival.updatedAt | date("d/m/Y H:i")}}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="text-right">
+			<a href="{{ path('admin.editionFestival.new') }}" class="btn btn-primary">Ajouter une edition d'un festival</a>
+		</div>
+	</div>
+{% endblock %}

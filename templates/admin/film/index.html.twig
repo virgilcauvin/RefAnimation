@@ -19,6 +19,7 @@
 				<tr>
 					<th>Titre</th>
 					<th>Actions</th>
+					<th>Mise à jour</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -32,6 +33,7 @@
 								<button class="btn btn-danger">Supprimer</button>
 							</form>
                         </td>
+						<td>{{ film.updatedAt | date("d/m/Y H:i")}}</td>
 					</tr>
 				{% endfor %}
 			</tbody>

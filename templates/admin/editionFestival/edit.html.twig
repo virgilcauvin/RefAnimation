@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ editionFestival.id }} - {{ editionFestival.dateDebut | date('Y')}} {% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+        <h1>Editer un type de festival</h1>
+        {{ include('admin/editionFestival/_form.html.twig', {button: 'Editer' }) }}
+    </div>
+{% endblock %}
