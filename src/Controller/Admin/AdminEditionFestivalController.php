@@ -2,10 +2,11 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Festival;
 use App\Entity\EditionFestival;
 use App\Form\EditionFestivalType;
-use App\Repository\EditionFestivalRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\EditionFestivalRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

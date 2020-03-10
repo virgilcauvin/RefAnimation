@@ -122,6 +122,11 @@ class Film
      */
     private $langues;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\EditionFestival", inversedBy="films")
+     */
+    private $EditionFestivals;
+
     public function __construct()
     {
         $this->created_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
@@ -129,6 +134,7 @@ class Film
         $this->festivals = new ArrayCollection();
         $this->public_cibles = new ArrayCollection();
         $this->langues = new ArrayCollection();
+        $this->EditionFestivals = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -434,6 +440,32 @@ class Film
     {
         if ($this->langues->contains($langue)) {
             $this->langues->removeElement($langue);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EditionFestival[]
+     */
+    public function getEditionFestivals(): Collection
+    {
+        return $this->EditionFestivals;
+    }
+
+    public function addEditionFestival(EditionFestival $editionFestival): self
+    {
+        if (!$this->EditionFestivals->contains($editionFestival)) {
+            $this->EditionFestivals[] = $editionFestival;
+        }
+
+        return $this;
+    }
+
+    public function removeEditionFestival(EditionFestival $editionFestival): self
+    {
+        if ($this->EditionFestivals->contains($editionFestival)) {
+            $this->EditionFestivals->removeElement($editionFestival);
         }
 
         return $this;

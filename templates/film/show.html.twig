@@ -31,7 +31,9 @@
 			{{ films.description }}</p>
 		<p>Année de production :
 			{{ films.anneeDeProduction }}</p>
-		<p>Durée de production : {{ films.dureeDeProduction }} ans</p>
+		<p>Durée de production :
+			{{ films.dureeDeProduction }}
+			ans</p>
 		<div>
 			<p>Bande Annonce :</p>
 			{{ films.lienVideo | raw}}
@@ -43,18 +45,41 @@
 			<p>Sous-titre en français</p>
 		{% endif %}
 	</div>
-	<div class="container mt-4">
-		{% if films.festivals is not empty%}
-			<p>Festivals :</p>
-			<ul>
-				{% for festival in films.festivals %}
-					<li><a href="{{ path('festival.show', {id: festival.id, slug: festival.slug}) }}">{{ festival.nom }}</a></li>
-				{% endfor %}
-			</ul>
-		{% else %}
-			<p>Ce film n'a pas encore été associé à des féstivals !</p>
-		{% endif %}
+	<div class="container">
+		<p>Festivals :</p>
+		<div class="row flex">
+			{% for edition in films.editionFestivals %}
+				<div class="col-3">
+					<div class="card">
+						<a href="{{ path('editionFestival.show', {id: edition.id, slug: edition.slug}) }}">
+							{% if edition.filename %}
+								<img src="{{ vich_uploader_asset(edition, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+							{% else %}
+								<img src="{{ '/images/editions/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+							{% endif %}
 
+							<div class="card-body">
+								<h5 class="card-title">
+									{{ edition.nom }}
+								</h5>
+								<div class="text-primary">
+									- Ville :
+									{{ edition.ville }}
+								</div>
+								<div class="text-primary">
+									- Pays :
+									{{ edition.pays }}
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			{% else %}
+				<p>Ce film n'a pas encore été associé à des féstivals !</p>
+			{% endfor %}
+		</div>
+	</div>
+	<div class="container mt-4">
 		{% if films.categories is not empty%}
 			<p>Catégories :</p>
 			<ul>

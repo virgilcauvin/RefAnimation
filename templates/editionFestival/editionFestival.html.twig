@@ -22,7 +22,7 @@
 
 						<div class="card-body">
 							<h5 class="card-title">
-								<a href="{{ path('editionFestival.show', {id: edition.id, slug: edition.slug}) }}">{{ edition.id }}</a>
+								<a href="{{ path('editionFestival.show', {id: edition.id, slug: edition.slug}) }}">{{ edition.nom }}</a>
 							</h5>
 							<p>{{ edition.dateDebut | date('Y') }}</p>
 							{# <p class="card-text">{{ edition.description | slice(0,50) }}...</p> #}

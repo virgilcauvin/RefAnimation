@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title editionFestivals.id %}
+{% block title editionFestivals.nom %}
 
 {% block body %}
 	<div class="jumbotron">
@@ -14,7 +14,7 @@
 					{% endif %}
 				</div>
 				<div class="col-md-4">
-					<h1>{{ editionFestivals.id }}</h1>
+					<h1>{{ editionFestivals.nom }}</h1>
 					<h3>{{ editionFestivals.ville }}</h3>
 					<h3>{{ editionFestivals.pays }}</h3>
 				</div>
@@ -30,6 +30,52 @@
 		<p>Nombre de lieux de projections :
 			{{ editionFestivals.NbLieuProjection }}</p>
 		</p>
-		{# <p>Site officiel : <a href="{{ editionFestivals.lien }}" target="_blank">{{ editionFestivals.lien }}</a></p> #}
+
+		<p>Site officiel : 
+		{% if editionFestivals.festival.lien %}
+			<a href="{{ editionFestivals.festival.lien }}" target="_blank">{{ editionFestivals.festival.lien }}</a></p>
+		{% else %}
+			<p>Non renseigné !</p>
+		{% endif %}
+
+		<div class="container">
+		<p>Festivals :</p>
+		<div class="row flex">
+			{% for film in editionFestivals.films %}
+				<div class="col-3">
+					<div class="card">
+						<a href="{{ path('film.show', {id: film.id, slug: film.slug}) }}">
+							{% if film.filename %}
+								<img src="{{ vich_uploader_asset(film, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+							{% else %}
+								<img src="{{ '/images/editions/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+							{% endif %}
+
+							<div class="card-body">
+								<h5 class="card-title">
+									{{ film.nom }}
+								</h5>
+								<div class="text-primary">
+									<p class="card-text">{{ film.description | slice(0,50) }}...</p>
+								</div>
+								<div class="text-primary">
+									- Durée :
+									{{ film.duree }}
+									min
+								</div>
+								<div class="text-primary">
+									- Sortie :
+									{{ film.date }}
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			{% else %}
+				<p>Ce film n'a pas encore été associé à des féstivals !</p>
+			{% endfor %}
+		</div>
+	</div>
+		
 	</div>
 {% endblock %}

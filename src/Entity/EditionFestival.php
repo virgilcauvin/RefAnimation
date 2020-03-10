@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Cocur\Slugify\Slugify;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -84,9 +86,20 @@ class EditionFestival
      */
     private $updated_at;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Film", mappedBy="EditionFestivals")
+     */
+    private $films;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $nom;
+
     public function __construct()
     {
-        $this->created_at = new \DateTime();
+        $this->created_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+        $this->films = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -248,6 +261,46 @@ class EditionFestival
     public function setFilename($filename)
     {
         $this->filename = $filename;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Film[]
+     */
+    public function getFilms(): Collection
+    {
+        return $this->films;
+    }
+
+    public function addFilm(Film $film): self
+    {
+        if (!$this->films->contains($film)) {
+            $this->films[] = $film;
+            $film->addEditionFestival($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFilm(Film $film): self
+    {
+        if ($this->films->contains($film)) {
+            $this->films->removeElement($film);
+            $film->removeEditionFestival($this);
+        }
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
 
         return $this;
     }

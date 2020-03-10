@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gérer les catégories
+{% block title %}Gérer les éditions de festivals
 {% endblock %}
 
 {% block body %}
 	<div class="container mt-4">
-		<h1>Gérer les éditions du festival : {{ festival.nom }}</h1>
+		<h1>Gérer les éditions du festival : {# {{ festival.nom }} #}</h1>
 
 		{% for message in app.flashes('success') %}
 			<div class="alert alert-success">
@@ -26,7 +26,7 @@
 				{% for editionFestival in editionFestivals %}
 					<tr>
 						{# <td>{{ festival.nom }}</td> #}
-						<td>{{ editionFestival.id }}</td>
+						<td>{{ editionFestival.id }} - {{ editionFestival.nom }}</td>
 						<td>
                             <a href="{{ path('admin.editionFestival.edit', {id: editionFestival.id}) }}" class="btn btn-secondary">Editer</a>
 							<form method="post" action="{{ path('admin.editionFestival.delete', {id: editionFestival.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer {{ editionFestival.id }} ?')" style="display: inline-block">

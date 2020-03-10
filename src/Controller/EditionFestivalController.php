@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\EditionFestivalRepository;
+use App\Repository\FestivalRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -13,9 +14,10 @@ class EditionFestivalController extends AbstractController
      */
     private $repository;
 
-    public function __construct(EditionFestivalRepository $editionFestivalRepository)
+    public function __construct(EditionFestivalRepository $editionFestivalRepository, FestivalRepository $festivalRepository)
     {
         $this->editionFestivalRepository = $editionFestivalRepository;
+        $this->festivalRepository = $festivalRepository;
     }
 
     /**
