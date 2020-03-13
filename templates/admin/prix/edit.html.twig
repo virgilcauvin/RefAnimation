@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title prix.nom %}
+
+{% block body %}
+	<div class="container mt-4">
+        <h1>Editer le prix</h1>
+        {{ include('admin/prix/_form.html.twig', {button: 'Editer' }) }}
+    </div>
+{% endblock %}

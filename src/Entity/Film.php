@@ -127,6 +127,16 @@ class Film
      */
     private $EditionFestivals;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Studio", mappedBy="Films")
+     */
+    private $studios;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Prix", mappedBy="film")
+     */
+    private $prixes;
+
     public function __construct()
     {
         $this->created_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
@@ -135,6 +145,8 @@ class Film
         $this->public_cibles = new ArrayCollection();
         $this->langues = new ArrayCollection();
         $this->EditionFestivals = new ArrayCollection();
+        $this->studios = new ArrayCollection();
+        $this->prixes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -466,6 +478,65 @@ class Film
     {
         if ($this->EditionFestivals->contains($editionFestival)) {
             $this->EditionFestivals->removeElement($editionFestival);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Studio[]
+     */
+    public function getStudios(): Collection
+    {
+        return $this->studios;
+    }
+
+    public function addStudio(Studio $studio): self
+    {
+        if (!$this->studios->contains($studio)) {
+            $this->studios[] = $studio;
+            $studio->addFilm($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudio(Studio $studio): self
+    {
+        if ($this->studios->contains($studio)) {
+            $this->studios->removeElement($studio);
+            $studio->removeFilm($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Prix[]
+     */
+    public function getPrixes(): Collection
+    {
+        return $this->prixes;
+    }
+
+    public function addPrix(Prix $prix): self
+    {
+        if (!$this->prixes->contains($prix)) {
+            $this->prixes[] = $prix;
+            $prix->setFilm($this);
+        }
+
+        return $this;
+    }
+
+    public function removePrix(Prix $prix): self
+    {
+        if ($this->prixes->contains($prix)) {
+            $this->prixes->removeElement($prix);
+            // set the owning side to null (unless already changed)
+            if ($prix->getFilm() === $this) {
+                $prix->setFilm(null);
+            }
         }
 
         return $this;

@@ -22,6 +22,32 @@
 					<h3>Durée :
 						{{ films.duree }}
 						min</h3>
+					<div class="container">
+						<p>Studios :</p>
+						<div class="row flex">
+							{% for studio in films.studios %}
+								<div class="col-6">
+									<div class="card">
+										<a href="{{ path('studio.show', {id: studio.id, slug: studio.slug}) }}">
+											{% if studio.filename %}
+												<img src="{{ vich_uploader_asset(studio, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+											{% else %}
+												<img src="{{ '/images/studio/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+											{% endif %}
+
+											<div class="card-body">
+												<h6 class="card-title">
+													{{ studio.nom }}
+												</h6>
+											</div>
+										</a>
+									</div>
+								</div>
+							{% else %}
+								<p>Ce film n'a pas encore été associé à des studios !</p>
+							{% endfor %}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -45,73 +71,99 @@
 			<p>Sous-titre en français</p>
 		{% endif %}
 	</div>
+	{# <div class="container">
+			<p>Participations aux festivals :</p>
+			<div class="row flex">
+				{% for edition in films.editionFestivals %}
+					<div class="col-3">
+						<div class="card">
+							<a href="{{ path('editionFestival.show', {id: edition.id, slug: edition.slug}) }}">
+								{% if edition.filename %}
+									<img src="{{ vich_uploader_asset(edition, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+								{% else %}
+									<img src="{{ '/images/editions/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+								{% endif %}
+	
+								<div class="card-body">
+									<h5 class="card-title">
+										{{ edition.nom }}
+									</h5>
+									<div class="text-primary">
+										- Ville :
+										{{ edition.ville }}
+									</div>
+									<div class="text-primary">
+										- Pays :
+										{{ edition.pays }}
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				{% else %}
+					<p>Ce film n'a pas encore été associé à des féstivals !</p>
+				{% endfor %}
+			</div>
+		</div> #}
 	<div class="container">
-		<p>Festivals :</p>
+		<p>Prix reçus :</p>
 		<div class="row flex">
-			{% for edition in films.editionFestivals %}
+			{% for prix in films.prixes %}
 				<div class="col-3">
 					<div class="card">
-						<a href="{{ path('editionFestival.show', {id: edition.id, slug: edition.slug}) }}">
-							{% if edition.filename %}
-								<img src="{{ vich_uploader_asset(edition, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
-							{% else %}
-								<img src="{{ '/images/editions/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
-							{% endif %}
-
-							<div class="card-body">
-								<h5 class="card-title">
-									{{ edition.nom }}
-								</h5>
-								<div class="text-primary">
-									- Ville :
-									{{ edition.ville }}
-								</div>
-								<div class="text-primary">
-									- Pays :
-									{{ edition.pays }}
-								</div>
+						{% if prix.editionFestival.filename %}
+							<img src="{{ vich_uploader_asset(prix.editionFestival, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+						{% else %}
+							<img src="{{ '/images/editions/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+						{% endif %}
+						<div class="card-body">
+							<h5 class="card-title">
+								{{ prix.nom }}
+							</h5>
+							<div class="text-primary">
+								<a href="{{ path('editionFestival.show', {id: prix.editionFestival.id, slug: prix.editionFestival.slug}) }}">{{ prix.EditionFestival.nom }}</a>
 							</div>
-						</a>
-					</div>
+						</div>
+					</a>
 				</div>
-			{% else %}
-				<p>Ce film n'a pas encore été associé à des féstivals !</p>
+			</div>
+		{% else %}
+			<p>Ce film n'a pas encore été associé à des féstivals !</p>
+		{% endfor %}
+	</div>
+</div>
+<div class="container mt-4">
+	{% if films.categories is not empty%}
+		<p>Catégories :</p>
+		<ul>
+			{% for categorie in films.categories %}
+				<li>{{ categorie.nom }}</li>
 			{% endfor %}
-		</div>
-	</div>
-	<div class="container mt-4">
-		{% if films.categories is not empty%}
-			<p>Catégories :</p>
-			<ul>
-				{% for categorie in films.categories %}
-					<li>{{ categorie.nom }}</li>
-				{% endfor %}
-			</ul>
-		{% else %}
-			<p>Ce film n'a pas encore été associé à des catégories !</p>
-		{% endif %}
+		</ul>
+	{% else %}
+		<p>Ce film n'a pas encore été associé à des catégories !</p>
+	{% endif %}
 
 
-		{% if films.langues is not empty%}
-			<p>langues :</p>
-			<ul>
-				{% for langue in films.langues %}
-					<li>{{ langue.nom }}</li>
-				{% endfor %}
-			</ul>
-		{% else %}
-			<p>Ce film n'a pas encore été associé à des langues !</p>
-		{% endif %}
+	{% if films.langues is not empty%}
+		<p>langues :</p>
+		<ul>
+			{% for langue in films.langues %}
+				<li>{{ langue.nom }}</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<p>Ce film n'a pas encore été associé à des langues !</p>
+	{% endif %}
 
-		{% if films.publicCibles is not empty%}
-			<p>Public cibles :</p>
-			<ul>
-				{% for public_cible in films.publicCibles %}
-					<li>{{ public_cible.nom }}</li>
-				{% endfor %}
-			</ul>
-		{% else %}
-			<p>Ce film n'a pas encore été associé à des publics cibles !</p>
-		{% endif %}
-	</div>
-{% endblock %}
+	{% if films.publicCibles is not empty%}
+		<p>Public cibles :</p>
+		<ul>
+			{% for public_cible in films.publicCibles %}
+				<li>{{ public_cible.nom }}</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<p>Ce film n'a pas encore été associé à des publics cibles !</p>
+	{% endif %}
+</div>{% endblock %}

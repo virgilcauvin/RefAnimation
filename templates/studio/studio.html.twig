@@ -1,30 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste FILMS !
+{% block title %}Liste Studios !
 {% endblock %}
 
 {% block body %}
 	<div class="jumbotron text-center">
-		<h1>Liste films !</h1>
+		<h1>Liste studios !</h1>
 		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque porro illo saepe quaerat fugit reiciendis quia facilis placeat, iste ullam repellat molestias, officiis tenetur quidem dolor non. Rem, error natus!</p>
 	</div>
 
 	<div class="container">
 		<div class="row flex">
-			{% for film in films %}
+			{% for studio in studios %}
 				<div class="col-3">
 					<div class="card">
-						{% if film.filename %}
-							<img src="{{ vich_uploader_asset(film, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+						{% if studio.filename %}
+							<img src="{{ vich_uploader_asset(studio, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
 						{% else %}
-							<img src="{{ '/images/films/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+							<img src="{{ '/images/studios/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
 						{% endif %}
 
 						<div class="card-body">
 							<h5 class="card-title">
-								<a href="{{ path('film.show', {id: film.id, slug: film.slug}) }}">{{ film.nom }}</a>
+								<a href="{{ path('studio.show', {id: studio.id, slug: studio.slug}) }}">{{ studio.nom }}</a>
 							</h5>
-							<p class="card-text">{{ film.description | slice(0,50) }}...</p>
+							<p class="card-text">{{ studio.description | slice(0,50) }}...</p>
 						</div>
 					</div>
 				</div>

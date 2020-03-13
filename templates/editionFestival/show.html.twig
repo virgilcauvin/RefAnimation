@@ -23,59 +23,102 @@
 	</div>
 	<div class="container mt-4">
 		<p>Dates :
-			du {{ editionFestivals.dateDebut | date('d-m-Y') }} au {{ editionFestivals.dateFin | date('d-m-Y')}}</p>
+									du
+			{{ editionFestivals.dateDebut | date('d-m-Y') }}
+			au
+			{{ editionFestivals.dateFin | date('d-m-Y')}}</p>
 		<p>Nombre de jours :
 			{{ editionFestivals.NbJour }}</p>
-		</p>
-		<p>Nombre de lieux de projections :
-			{{ editionFestivals.NbLieuProjection }}</p>
-		</p>
+	</p>
+	<p>Nombre de lieux de projections :
+		{{ editionFestivals.NbLieuProjection }}</p>
+</p>
 
-		<p>Site officiel : 
-		{% if editionFestivals.festival.lien %}
-			<a href="{{ editionFestivals.festival.lien }}" target="_blank">{{ editionFestivals.festival.lien }}</a></p>
-		{% else %}
-			<p>Non renseigné !</p>
-		{% endif %}
+<p>Site officiel :
+	{% if editionFestivals.festival.lien %}
+		<a href="{{ editionFestivals.festival.lien }}" target="_blank">{{ editionFestivals.festival.lien }}</a>
+	</p>
+{% else %}
+	<p>Non renseigné !</p>
+{% endif %}
 
-		<div class="container">
-		<p>Festivals :</p>
-		<div class="row flex">
-			{% for film in editionFestivals.films %}
-				<div class="col-3">
-					<div class="card">
-						<a href="{{ path('film.show', {id: film.id, slug: film.slug}) }}">
-							{% if film.filename %}
-								<img src="{{ vich_uploader_asset(film, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
-							{% else %}
-								<img src="{{ '/images/editions/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
-							{% endif %}
+{# <div class="container">
+	<p>Festivals :</p>
+	<div class="row flex">
+		{% for film in editionFestivals.films %}
+			<div class="col-3">
+				<div class="card">
+					<a href="{{ path('film.show', {id: film.id, slug: film.slug}) }}">
+						{% if film.filename %}
+							<img src="{{ vich_uploader_asset(film, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+						{% else %}
+							<img src="{{ '/images/editions/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+						{% endif %}
 
-							<div class="card-body">
-								<h5 class="card-title">
-									{{ film.nom }}
-								</h5>
-								<div class="text-primary">
-									<p class="card-text">{{ film.description | slice(0,50) }}...</p>
-								</div>
-								<div class="text-primary">
-									- Durée :
-									{{ film.duree }}
-									min
-								</div>
-								<div class="text-primary">
-									- Sortie :
-									{{ film.date }}
-								</div>
+						<div class="card-body">
+							<h5 class="card-title">
+								{{ film.nom }}
+							</h5>
+							<div class="text-primary">
+								<p class="card-text">{{ film.description | slice(0,50) }}...</p>
 							</div>
-						</a>
-					</div>
+							<div class="text-primary">
+								- Durée :
+								{{ film.duree }}
+								min
+							</div>
+							<div class="text-primary">
+								- Sortie :
+								{{ film.date }}
+							</div>
+						</div>
+					</a>
 				</div>
-			{% else %}
-				<p>Ce film n'a pas encore été associé à des féstivals !</p>
-			{% endfor %}
-		</div>
+			</div>
+		{% else %}
+			<p>Cette edition de festival n'a pas encore été associé à des films !</p>
+		{% endfor %}
 	</div>
-		
+</div> #}
+<div class="container">
+	<p>Festivals :</p>
+	<div class="row flex">
+		{% for prix in editionFestivals.prixes %}
+			
+			<div class="col-3">
+				{{ prix.nom }}
+				<div class="card">
+					<a href="{{ path('film.show', {id: prix.film.id, slug: prix.film.slug}) }}">
+						{% if prix.film.filename %}
+							<img src="{{ vich_uploader_asset(prix.film, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+						{% else %}
+							<img src="{{ '/images/editions/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+						{% endif %}
+
+						<div class="card-body">
+							<h5 class="card-title">
+								{{ prix.film.nom }}
+							</h5>
+							<div class="text-primary">
+								<p class="card-text">{{ prix.film.description | slice(0,50) }}...</p>
+							</div>
+							<div class="text-primary">
+								- Durée :
+								{{ prix.film.duree }}
+								min
+							</div>
+							<div class="text-primary">
+								- Sortie :
+								{{ prix.film.date }}
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		{% else %}
+			<p>Cette edition de festival n'a pas encore été associé à des films !</p>
+		{% endfor %}
 	</div>
+</div>
+</div>
 {% endblock %}

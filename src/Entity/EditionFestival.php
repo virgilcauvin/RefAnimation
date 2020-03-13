@@ -96,10 +96,16 @@ class EditionFestival
      */
     private $nom;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Prix", mappedBy="EditionFestival")
+     */
+    private $prixes;
+
     public function __construct()
     {
         $this->created_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
         $this->films = new ArrayCollection();
+        $this->prixes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -301,6 +307,37 @@ class EditionFestival
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Prix[]
+     */
+    public function getPrixes(): Collection
+    {
+        return $this->prixes;
+    }
+
+    public function addPrix(Prix $prix): self
+    {
+        if (!$this->prixes->contains($prix)) {
+            $this->prixes[] = $prix;
+            $prix->setEditionFestival($this);
+        }
+
+        return $this;
+    }
+
+    public function removePrix(Prix $prix): self
+    {
+        if ($this->prixes->contains($prix)) {
+            $this->prixes->removeElement($prix);
+            // set the owning side to null (unless already changed)
+            if ($prix->getEditionFestival() === $this) {
+                $prix->setEditionFestival(null);
+            }
+        }
 
         return $this;
     }

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title studios.nom %}
+
+{% block body %}
+	<div class="jumbotron">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					{% if studios.filename %}
+						<img src="{{ vich_uploader_asset(studios, 'imageFile') | imagine_filter('medium') }}" alt="card-img-top" style="width: 100%; height:auto;">
+					{% else %}
+						<img src="{{ '/images/studios/empty.jpg' | imagine_filter('medium') }}" alt="card-img-top" style="width: 100%; height:auto;">
+					{% endif %}
+				</div>
+				<div class="col-md-4">
+					<h1>{{ studios.nom }}</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container mt-4">
+		<p>Description :
+			{{ studios.description }}</p>
+	</div>
+	<div class="container mt-4">
+		<p>Site officiel :
+			{% if studios.lien %}
+				<a href="{{ studios.lien }}" target="_blank">{{ studios.lien }}</a>
+			</p>
+		{% else %}
+			<p>Non renseigné !</p>
+		{% endif %}
+	</div>
+	<div class="container mt-4">
+		<div class="row flex">
+			{% for film in studios.films %}
+				<div class="col-3">
+					<div class="card">
+						{% if film.filename %}
+							<img src="{{ vich_uploader_asset(film, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+						{% else %}
+							<img src="{{ '/images/films/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+						{% endif %}
+
+						<div class="card-body">
+							<h5 class="card-title">
+								<a href="{{ path('film.show', {id: film.id, slug: film.slug}) }}">{{ film.nom }}</a>
+							</h5>
+							<div class="text-primary">
+								{{ film.description | slice(0,50) }}
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

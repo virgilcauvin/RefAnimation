@@ -4,10 +4,12 @@ namespace App\Form;
 
 use App\Entity\Film;
 use App\Entity\Langue;
+use App\Entity\Studio;
 use App\Entity\Festival;
 use App\Entity\Categorie;
 use App\Entity\PublicCible;
 use App\Entity\EditionFestival;
+use App\Entity\Prix;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -36,6 +38,8 @@ class FilmType extends AbstractType
             ->add('categories',EntityType::class,['class'=>Categorie::class,'choice_label'=>'nom', 'multiple' => true, 'required' => false])
             //->add('festivals',EntityType::class,['class'=>Festival::class,'choice_label'=>'nom', 'multiple' => true, 'required' => false])
             ->add('editionFestivals', EntityType::class,['class'=>EditionFestival::class,'choice_label' => 'nom', 'multiple' => true, 'required' => false])
+            ->add('studios', EntityType::class,['class'=>Studio::class,'choice_label' => 'nom', 'multiple' => true, 'required' => false])
+            //->add('prixes', EntityType::class,['class' =>Prix::class, 'choice_label' => 'nom', 'multiple' => true, 'required'=>false])
 
         ;
     }

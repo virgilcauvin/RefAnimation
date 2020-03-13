@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Prix;
 use App\Entity\Festival;
 use App\Entity\EditionFestival;
 use Symfony\Component\Form\AbstractType;
@@ -25,6 +26,7 @@ class EditionFestivalType extends AbstractType
             ->add('NbLieuProjection')
             ->add('festival',EntityType::class,['class'=>Festival::class,'choice_label'=>'nom'])
             ->add('imageFile', FileType::class, ['required' => false])
+            ->add('Prix', EntityType::class,['class'=>Prix::class, 'choice_label' => 'nom', 'multiple'=>true, 'required'=>false])
         ;
     }
 

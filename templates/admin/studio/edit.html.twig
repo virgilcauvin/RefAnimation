@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title studio.nom %}
 
 {% block body %}
 	<div class="container mt-4">
-        <h1>Ajouter un nouveau type de festival</h1>
-        {{ include('admin/editionFestival/_form.html.twig', {button: 'Ajouter' }) }}
+        <h1>Editer le studio</h1>
+        {{ include('admin/studio/_form.html.twig', {button: 'Editer' }) }}
     </div>
 {% endblock %}
 {% block stylesheets %}

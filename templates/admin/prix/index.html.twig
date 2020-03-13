@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer les catégories
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Gérer les prix</h1>
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+			
+		{% endfor %}
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Titre</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for prix in prixs %}
+					<tr>
+						<td>{{ prix.nom }} - {{ prix.editionFestival.nom }}</td>
+						<td>
+                            <a href="{{ path('admin.prix.edit', {id: prix.id}) }}" class="btn btn-secondary">Editer</a>
+							<form method="post" action="{{ path('admin.prix.delete', {id: prix.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer {{ prix.nom }} ?')" style="display: inline-block">
+								<input type="hidden" name="_method" value="DELETE">
+								<button class="btn btn-danger">Supprimer</button>
+							</form>
+                        </td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="text-right">
+			<a href="{{ path('admin.prix.new') }}" class="btn btn-primary">Ajouter un nouveau prix</a>
+		</div>
+	</div>
+{% endblock %}

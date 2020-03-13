@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer les studios
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Gérer les studios</h1>
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+			
+		{% endfor %}
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Titre</th>
+					<th>Actions</th>
+					<th>Mise à jour</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for studio in studios %}
+					<tr>
+						<td>{{ studio.nom }}</td>
+						<td>
+                            <a href="{{ path('admin.studio.edit', {id: studio.id}) }}" class="btn btn-secondary">Editer</a>
+							<form method="post" action="{{ path('admin.studio.delete', {id: studio.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer {{ studio.nom }} ?')" style="display: inline-block">
+								<input type="hidden" name="_method" value="DELETE">
+								<button class="btn btn-danger">Supprimer</button>
+							</form>
+                        </td>
+						<td>{{ studio.updateAt | date("d/m/Y H:i")}}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="text-right">
+			<a href="{{ path('admin.studio.new') }}" class="btn btn-primary">Ajouter un nouveau studio</a>
+		</div>
+	</div>
+{% endblock %}
