@@ -14,12 +14,12 @@ class HomeController extends AbstractController
      */
     public function index(FilmRepository $filmRepository, FestivalRepository $festivalRepository)
     {
-        //$films = $filmRepository->findLatest();
-        //$festivals = $festivalRepository->findLatest();
-        return $this->render('home/home2.html.twig', [
+        $films = $filmRepository->findLatest();
+        $festivals = $festivalRepository->findLatest();
+        return $this->render('home/home.html.twig', [
             'controller_name' => 'HomeController',
-            //'films' => $films,
-            //'festivals' => $festivals
+            'films' => $films,
+            'festivals' => $festivals
         ]);
     }
 }
