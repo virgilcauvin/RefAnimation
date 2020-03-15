@@ -9,6 +9,7 @@
 /vendor/
 /.env
 /.env.test
+/src/Migrations/Version*
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
@@ -20,3 +21,4 @@
 ###> liip/imagine-bundle ###
 /public/media/cache/
 ###< liip/imagine-bundle ###
+/public/images/
