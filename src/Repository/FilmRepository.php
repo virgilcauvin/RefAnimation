@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Film;
+use App\Entity\Search;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -18,6 +20,66 @@ class FilmRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Film::class);
+    }
+
+    /**
+     * @return Film[]
+     */
+    public function findSearch(Search $search)
+    {
+        $query = $this->createQueryBuilder('p');
+
+        if ($search->getMinAnnee()) {
+            $query = $query
+            ->andWhere('p.date >= :minAnnee')
+            ->setParameter('minAnnee', $search->getMinAnnee());
+        }
+        if ($search->getMaxAnnee()) {
+            $query = $query
+            ->andWhere('p.date <= :maxAnnee')
+            ->setParameter('maxAnnee', $search->getMaxAnnee());
+        }
+        if ($search->getByMinDuree()) {
+            $query = $query
+            ->andWhere('p.duree >= :byMinDuree')
+            ->setParameter('byMinDuree', $search->getbyMinDuree());
+        }
+        if ($search->getByMaxDuree()) {
+            $query = $query
+            ->andWhere('p.duree <= :byMaxDuree')
+            ->setParameter('byMaxDuree', $search->getbyMaxDuree());
+        }
+        if ($search->getByText()) {
+            $query = $query
+            ->andWhere('p.nom LIKE :byText')
+            ->orWhere('p.realisateur LIKE :byText')
+            ->leftJoin('p.prixes', 'prix')
+            ->orWhere('prix.nom LIKE :byText')
+            ->leftJoin('p.festivals', 'festival')
+            ->orWhere('festival.nom LIKE :byText')
+            /* ->leftJoin('p.EditionFestivals', 'edition')
+            ->orWhere('edition.nom LIKE :byText') */
+            ->leftJoin('p.studios', 'studio')
+            ->orWhere('studio.nom LIKE :byText')
+            ->leftJoin('p.langues', 'langue')
+            ->orWhere('langue.nom LIKE :byText')
+            ->leftJoin('p.public_cibles', 'public_cibles')
+            ->orWhere('public_cibles.nom LIKE :byText')
+            ->setParameter('byText', '%' . $search->getbyText() . '%');
+        }
+        if ($search->getByTraduitFr()) {
+            $query = $query
+            ->andWhere('p.traduit_fr = :byTraduitFr')
+            ->setParameter('byTraduitFr', $search->getbyTraduitFr());
+        }
+        if ($search->getBySoustitresFr()) {
+            $query = $query
+            ->andWhere('p.soustitres_fr = :bySoustitresFr')
+            ->setParameter('bySoustitresFr', $search->getBySoustitresFr());
+        }
+        
+        
+        return $query->getQuery()->getResult();
     }
 
     /**

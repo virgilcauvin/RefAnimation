@@ -8,6 +8,40 @@
 		<h1>Liste films !</h1>
 		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque porro illo saepe quaerat fugit reiciendis quia facilis placeat, iste ullam repellat molestias, officiis tenetur quidem dolor non. Rem, error natus!</p>
 	</div>
+	<div class="jumbotron">
+		{{ form_start(form) }}
+		<div class="form-row">
+			<div class="col-12">
+				{{ form_row(form.byText) }}
+			</div>
+			<div class="row">
+				<div class="col">
+					{{ form_row(form.minAnnee) }}
+				</div>
+				<div class="col">
+					{{ form_row(form.maxAnnee) }}
+				</div>
+				<div class="col">
+					{{ form_row(form.byMinDuree) }}
+				</div>
+				<div class="col">
+					{{ form_row(form.byMaxDuree) }}
+				</div>
+				<div class="row">
+					<div class="col">
+						{{ form_row(form.byTraduitFr) }}
+					</div>
+					<div class="col">
+						{{ form_row(form.bySoustitresFr) }}
+					</div>
+				</div>
+			</div>
+			<div class="col-12">
+				<button class="btn btn-primary">Rechercher</button>
+			</div>
+		</div>
+		{{ form_end(form) }}
+	</div>
 
 	<div class="container">
 		<div class="row flex">
@@ -25,6 +59,9 @@
 								<a href="{{ path('film.show', {id: film.id, slug: film.slug}) }}">{{ film.nom }}</a>
 							</h5>
 							<p class="card-text">{{ film.description | slice(0,50) }}...</p>
+							<p>Durée :
+								{{ film.duree }}
+								min</p>
 						</div>
 					</div>
 				</div>

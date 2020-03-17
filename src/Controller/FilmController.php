@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Search;
+use App\Form\SearchType;
 use App\Repository\FilmRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -22,12 +25,18 @@ class FilmController extends AbstractController
     /**
      * @Route("/film", name="film")
      */
-    public function index()
+    public function index(Request $request)
     {
-        $films = $this->filmRepository->findAll();
+        $search = new Search();
+        $form = $this->createForm(SearchType::class, $search);
+        $form->handleRequest($request);
+
+        $films = $this->filmRepository->findSearch($search);
+        //$films = $this->filmRepository->findAll();
         return $this->render('film/film.html.twig', [
             'current_menu' => 'film',
-            'films'=> $films
+            'films'=> $films,
+            'form' => $form-> createView()
         ]);
     }
 

@@ -37,7 +37,7 @@ class FilmType extends AbstractType
             ->add('public_cibles',EntityType::class,['class'=>PublicCible::class,'choice_label'=>'nom', 'multiple' => true, 'expanded' => true, 'required' => false])
             ->add('categories',EntityType::class,['class'=>Categorie::class,'choice_label'=>'nom', 'multiple' => true, 'required' => false])
             //->add('festivals',EntityType::class,['class'=>Festival::class,'choice_label'=>'nom', 'multiple' => true, 'required' => false])
-            ->add('editionFestivals', EntityType::class,['class'=>EditionFestival::class,'choice_label' => 'nom', 'multiple' => true, 'required' => false])
+            ->add('editionFestivals', EntityType::class,['class'=>EditionFestival::class, 'label' => 'Selection en festival','choice_label' => 'nom', 'multiple' => true, 'required' => false])
             ->add('studios', EntityType::class,['class'=>Studio::class,'choice_label' => 'nom', 'multiple' => true, 'required' => false])
             //->add('prixes', EntityType::class,['class' =>Prix::class, 'choice_label' => 'nom', 'multiple' => true, 'required'=>false])
 
