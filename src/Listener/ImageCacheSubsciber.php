@@ -20,7 +20,7 @@ class ImageCacheSubscriber implements EventSubscriber
     /**
      * @var CacheManager
      */
-    private $cacheManger;
+    private $cacheManager;
 
     /**
      * @var UploaderHelper
