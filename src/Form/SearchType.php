@@ -19,7 +19,7 @@ class SearchType extends AbstractType
                 'required' => false,
                 'label' => 'Recherche',
                 'attr' => [
-                    'placeholder' => 'Titre de film, réalisateur, prix...'
+                    'placeholder' => 'Titre de film, réalisateur, prix reçus...'
                 ]
             ])
             ->add('maxAnnee', IntegerType::class, [
