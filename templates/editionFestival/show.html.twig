@@ -37,10 +37,14 @@
 <p>Site officiel :
 	{% if editionFestivals.festival.lien %}
 		<a href="{{ editionFestivals.festival.lien }}" target="_blank">{{ editionFestivals.festival.lien }}</a>
-	</p>
-{% else %}
-	<p>Non renseigné !</p>
-{% endif %}
+	{% else %}
+		<p>Non renseigné !</p>
+	{% endif %}</p>
+<p>Type de festival :
+	{% for type in editionFestivals.typeFestivals %}
+		<p>- {{ type.nom }}</p>
+	{% endfor %}
+</p>
 
 {# <div class="container">
 	<p>Festivals :</p>
@@ -81,7 +85,7 @@
 	</div>
 </div> #}
 <div class="container">
-	<p>Festivals :</p>
+	<p>Prix :</p>
 	<div class="row flex">
 		{% for prix in editionFestivals.prixes %}
 			

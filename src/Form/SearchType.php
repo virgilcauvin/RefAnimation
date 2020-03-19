@@ -2,13 +2,15 @@
 
 namespace App\Form;
 
+use App\Entity\PublicCible;
 use App\Entity\Search;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class SearchType extends AbstractType
 {
@@ -45,6 +47,12 @@ class SearchType extends AbstractType
             ->add('bySoustitresFr', CheckboxType::class,[
                 'required' => false,
                 'label' => 'Sous-titré en francais'
+            ])
+            ->add('byPublicCible', EntityType::class,[
+                'class' => PublicCible::class,
+                'choice_label' => 'nom',
+                'required' => false,
+                'label' => 'Public cible'
             ])
         ;
     }

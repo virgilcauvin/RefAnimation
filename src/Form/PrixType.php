@@ -16,8 +16,8 @@ class PrixType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('editionFestival', EntityType::class,['class' => EditionFestival::class, 'choice_label' => 'nom', 'required' => false])
-            ->add('film', EntityType::class,['class'=>Film::class, 'choice_label' => 'nom', 'required' => false])
+            ->add('editionFestival', EntityType::class,['class' => EditionFestival::class, 'choice_label' => 'nom'])
+            ->add('film', EntityType::class,['class'=>Film::class, 'choice_label' => 'nom'])
         ;
     }
 

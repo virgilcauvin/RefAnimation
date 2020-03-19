@@ -42,12 +42,12 @@ class FilmRepository extends ServiceEntityRepository
         if ($search->getByMinDuree()) {
             $query = $query
             ->andWhere('p.duree >= :byMinDuree')
-            ->setParameter('byMinDuree', $search->getbyMinDuree());
+            ->setParameter('byMinDuree', $search->getByMinDuree());
         }
         if ($search->getByMaxDuree()) {
             $query = $query
             ->andWhere('p.duree <= :byMaxDuree')
-            ->setParameter('byMaxDuree', $search->getbyMaxDuree());
+            ->setParameter('byMaxDuree', $search->getByMaxDuree());
         }
         if ($search->getByText()) {
             $query = $query
@@ -62,10 +62,7 @@ class FilmRepository extends ServiceEntityRepository
             ->leftJoin('p.studios', 'studio')
             ->orWhere('studio.nom LIKE :byText')
             ->leftJoin('p.langues', 'langue')
-            ->orWhere('langue.nom LIKE :byText')
-            ->leftJoin('p.public_cibles', 'public_cibles')
-            ->orWhere('public_cibles.nom LIKE :byText')
-            ->setParameter('byText', '%' . $search->getbyText() . '%');
+            ->orWhere('langue.nom LIKE :byText'); 
         }
         if ($search->getByTraduitFr()) {
             $query = $query
@@ -76,6 +73,12 @@ class FilmRepository extends ServiceEntityRepository
             $query = $query
             ->andWhere('p.soustitres_fr = :bySoustitresFr')
             ->setParameter('bySoustitresFr', $search->getBySoustitresFr());
+        }
+        if ($search->getByPublicCible()) {
+            $query = $query
+            ->leftJoin('p.public_cibles', 'public_cible')
+            ->andWhere('public_cible.id LIKE :byPublicCible')
+            ->setParameter('byPublicCible', $search->getByPublicCible());
         }
         
         

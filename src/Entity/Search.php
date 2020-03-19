@@ -42,6 +42,11 @@ class Search
     private $bySoustitresFr;
 
     /**
+     * @var Collection|PublicCible[]
+     */
+    private $byPublicCible;
+
+    /**
      * @return  int|null
      */ 
     public function getMaxAnnee()
@@ -188,6 +193,30 @@ class Search
     public function setBySoustitresFr($bySoustitresFr)
     {
         $this->bySoustitresFr = $bySoustitresFr;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of byPublicCible
+     *
+     * @return  Collection|PublicCible[]
+     */ 
+    public function getByPublicCible()
+    {
+        return $this->byPublicCible;
+    }
+
+    /**
+     * Set the value of byPublicCible
+     *
+     * @param  Collection|PublicCible[]  $byPublicCible
+     *
+     * @return  self
+     */ 
+    public function setByPublicCible($byPublicCible)
+    {
+        $this->byPublicCible = $byPublicCible;
 
         return $this;
     }

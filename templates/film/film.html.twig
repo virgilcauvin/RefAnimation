@@ -34,6 +34,9 @@
 					<div class="col">
 						{{ form_row(form.bySoustitresFr) }}
 					</div>
+					<div class="col">
+						{{ form_row(form.byPublicCible) }}
+					</div>
 				</div>
 			</div>
 			<div class="col-12">
@@ -46,7 +49,7 @@
 	<div class="container">
 		<div class="row flex">
 			{% for film in films %}
-				<div class="col-3">
+				<div class="col-3 mb-2">
 					<div class="card">
 						{% if film.filename %}
 							<img src="{{ vich_uploader_asset(film, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">

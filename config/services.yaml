@@ -27,5 +27,7 @@ services:
     # please note that last definitions always *replace* previous ones
 
     App\Listener:
+        namespace: App\Listener\
+        resource: '../src/Listener/*' 
         tags:
         - { name: doctrine.event_subscriber }

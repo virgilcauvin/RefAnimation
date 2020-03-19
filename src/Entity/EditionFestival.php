@@ -101,11 +101,17 @@ class EditionFestival
      */
     private $prixes;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\TypeFestival", inversedBy="editionFestivals")
+     */
+    private $TypeFestivals;
+
     public function __construct()
     {
         $this->created_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
         $this->films = new ArrayCollection();
         $this->prixes = new ArrayCollection();
+        $this->TypeFestivals = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -337,6 +343,32 @@ class EditionFestival
             if ($prix->getEditionFestival() === $this) {
                 $prix->setEditionFestival(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TypeFestival[]
+     */
+    public function getTypeFestivals(): Collection
+    {
+        return $this->TypeFestivals;
+    }
+
+    public function addTypeFestival(TypeFestival $typeFestival): self
+    {
+        if (!$this->TypeFestivals->contains($typeFestival)) {
+            $this->TypeFestivals[] = $typeFestival;
+        }
+
+        return $this;
+    }
+
+    public function removeTypeFestival(TypeFestival $typeFestival): self
+    {
+        if ($this->TypeFestivals->contains($typeFestival)) {
+            $this->TypeFestivals->removeElement($typeFestival);
         }
 
         return $this;

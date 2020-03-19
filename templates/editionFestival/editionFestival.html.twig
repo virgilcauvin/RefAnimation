@@ -32,6 +32,9 @@
 							<div class="text-primary">
 								- Pays : {{ edition.pays }}
 							</div>
+							{% for type in edition.typeFestivals %}
+								- {{ type.nom }}
+							{% endfor %}
 						</div>
 					</div>
 				</div>
