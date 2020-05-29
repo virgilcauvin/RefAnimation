@@ -1,37 +1,109 @@
-{% extends 'base.html.twig' %}
+{% extends 'adminBase.html.twig' %}
 
 {% block title %}Administration
 {% endblock %}
 
 {% block body %}
 	<div class="container mt-4">
-		<h1>Gérer</h1>
-		<div>
-            <a href="{{ path('admin.film.index') }}">Films</a>
-        </div>
-		<div>
-			<a href="{{ path('admin.categorie.index') }}">Catégories</a>
+		<h1 class="mb-5">Gérer</h1>
+		<div class="container">
+			<div class="row flex">
+				<div class="col-6 mb-5">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title text-center">
+								<a href="{{ path('admin.film.index') }}">Films</a>
+							</h5>
+							<p class="card-text">Creation, édition, suppression des films</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-6 mb-5">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title text-center">
+								<a href="{{ path('admin.festival.index') }}">Festivals</a>
+							</h5>
+							<p class="card-text">Creation, édition, suppression des festivals</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-6 mb-5">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title text-center">
+								<a href="{{ path('admin.studio.index') }}">Studio</a>
+							</h5>
+							<p class="card-text">Creation, édition, suppression des studios</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-6 mb-5">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title text-center">
+								<a href="{{ path('admin.editionFestival.index') }}">Edition de festivals</a>
+							</h5>
+							<p class="card-text">Creation, édition, suppression des éditions de festivals</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div>
-			<a href="{{ path('admin.festival.index') }}">Festivals</a>
-		</div>
-		<div>
-			<a href="{{ path('admin.public_cible.index') }}">Publics cibles</a>
-		</div>
-		<div>
-			<a href="{{ path('admin.langue.index') }}">langues</a>
-		</div>
-		<div>
-			<a href="{{ path('admin.typeFestival.index') }}">Type de festivals</a>
-		</div>
-		<div>
-			<a href="{{ path('admin.editionFestival.index') }}">Edition de festivals</a>
-		</div>
-		<div>
-			<a href="{{ path('admin.prix.index') }}">Prix</a>
-		</div>
-		<div>
-			<a href="{{ path('admin.studio.index') }}">Studio</a>
+		<h2 class="mb-5">Options</h2>
+		<div class="container">
+			<div class="row flex">
+				<div class="col-3 mb-5">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title text-center">
+								<a href="{{ path('admin.categorie.index') }}">Catégories</a>
+							</h5>
+							<p class="card-text">Creation, édition, suppression des catégories</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-3 mb-5">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title text-center">
+								<a href="{{ path('admin.public_cible.index') }}">Publics cibles</a>
+							</h5>
+							<p class="card-text">Creation, édition, suppression des publics cibles</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-3 mb-5">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title text-center">
+								<a href="{{ path('admin.langue.index') }}">langues</a>
+							</h5>
+							<p class="card-text">Creation, édition, suppression des langues</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-3 mb-5">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title text-center">
+								<a href="{{ path('admin.typeFestival.index') }}">Type de festivals</a>
+							</h5>
+							<p class="card-text">Creation, édition, suppression des types de festivals</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-3 mb-5">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title text-center">
+								<a href="{{ path('admin.prix.index') }}">Prix</a>
+							</h5>
+							<p class="card-text">Creation, édition, suppression des prix</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}

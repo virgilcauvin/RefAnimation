@@ -4,8 +4,6 @@ namespace App\Repository;
 
 use App\Entity\Film;
 use App\Entity\Search;
-use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -52,17 +50,7 @@ class FilmRepository extends ServiceEntityRepository
         if ($search->getByText()) {
             $query = $query
             ->andWhere('p.nom LIKE :byText')
-            ->orWhere('p.realisateur LIKE :byText')
-            ->leftJoin('p.prixes', 'prix')
-            ->orWhere('prix.nom LIKE :byText')
-            ->leftJoin('p.festivals', 'festival')
-            ->orWhere('festival.nom LIKE :byText')
-            /* ->leftJoin('p.EditionFestivals', 'edition')
-            ->orWhere('edition.nom LIKE :byText') */
-            ->leftJoin('p.studios', 'studio')
-            ->orWhere('studio.nom LIKE :byText')
-            ->leftJoin('p.langues', 'langue')
-            ->orWhere('langue.nom LIKE :byText'); 
+            ->setParameter('byText', '%' . $search->getByText() . '%' ); 
         }
         if ($search->getByTraduitFr()) {
             $query = $query

@@ -9,71 +9,82 @@
 		<p>Base de données du court métrage d'animation</p>
 	</div>
 	<div class="container">
-		<h2>Les derniers films modifiés</h2>
-		<div class="row flex">
-			{% for film in films %}
-				<div class="col-3">
-					<div class="card">
-						<a href="{{ path('film.show', {id: film.id, slug: film.slug}) }}">
-							{% if film.filename %}
-								<img src="{{ vich_uploader_asset(film, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
-							{% else %}
-								<img src="{{ '/images/films/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
-							{% endif %}
+		<p>Recherche : {{ texte }}</p>
+	</div>
+	<div class="container">
+		{% if films %}
+			<h2>Tout les fims par ordre d'id</h2>
+			<div class="row flex">
+				{% for film in films %}
+					<div class="col-3 mb-5">
+						<div class="card">
+							<a href="{{ path('film.show', {id: film.id, slug: film.slug}) }}">
+								{% if film.filename %}
+									<img src="{{ vich_uploader_asset(film, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+								{% else %}
+									<img src="{{ '/images/films/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+								{% endif %}
 
-							<div class="card-body">
-								<h5 class="card-title">
-									{{ film.nom }}
-								</h5>
-								<p class="card-text">{{ film.description | slice(0,50) }}...</p>
-								<div class="text-primary">
-									- Durée :
-									{{ film.duree }}
-									min
+								<div class="card-body">
+									<h5 class="card-title">
+										{{ film.nom }}
+									</h5>
+									<p class="card-text">{{ film.description | slice(0,50) }}...</p>
+									<div class="text-primary">
+										- Durée :
+										{{ film.duree }}
+										min
+									</div>
+									<div class="text-primary">
+										- Sortie :
+										{{ film.date }}
+									</div>
 								</div>
-								<div class="text-primary">
-									- Sortie :
-									{{ film.date }}
-								</div>
-							</div>
-						</a>
+							</a>
+						</div>
 					</div>
-				</div>
-			{% endfor %}
-		</div>
+				{% endfor %}
+			</div>
+		{% else %}
+			<h3>Aucun film ne correspond à votre recherche !</h3>
+		{% endif %}
 	</div>
 
 	<div class="container">
-		<h2>Les derniers féstivals modifiés</h2>
-		<div class="row flex">
-			{% for festival in festivals %}
-				<div class="col-3">
-					<div class="card">
-						<a href="{{ path('festival.show', {id: festival.id, slug: festival.slug}) }}">
-							{% if festival.filename %}
-								<img src="{{ vich_uploader_asset(festival, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
-							{% else %}
-								<img src="{{ '/images/festivals/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
-							{% endif %}
+		{% if festivals %}
+			<h2>tout les festivals par ordre d'id</h2>
+			<div class="row flex">
+				{% for festival in festivals %}
+					<div class="col-3 mb-5">
+						<div class="card">
+							<a href="{{ path('festival.show', {id: festival.id, slug: festival.slug}) }}">
+								{% if festival.filename %}
+									<img src="{{ vich_uploader_asset(festival, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+								{% else %}
+									<img src="{{ '/images/festivals/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+								{% endif %}
 
-							<div class="card-body">
-								<h5 class="card-title">
-									{{ festival.nom }}
-								</h5>
-								<p class="card-text">{{ festival.description | slice(0,50) }}...</p>
-								<div class="text-primary">
-									- Ville :
-									{{ festival.ville }}
+								<div class="card-body">
+									<h5 class="card-title">
+										{{ festival.nom }}
+									</h5>
+									<p class="card-text">{{ festival.description | slice(0,50) }}...</p>
+									<div class="text-primary">
+										- Ville :
+										{{ festival.ville }}
+									</div>
+									<div class="text-primary">
+										- Pays :
+										{{ festival.pays }}
+									</div>
 								</div>
-								<div class="text-primary">
-									- Pays :
-									{{ festival.pays }}
-								</div>
-							</div>
-						</a>
+							</a>
+						</div>
 					</div>
-				</div>
-			{% endfor %}
-		</div>
+				{% endfor %}
+			</div>
+		{% else %}
+			<h3>Aucun festival ne correspond à votre recherche !</h3>
+		{% endif %}
 	</div>
 {% endblock %}

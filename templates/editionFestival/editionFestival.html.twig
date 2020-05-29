@@ -12,7 +12,7 @@
 	<div class="container">
 		<div class="row flex">
 			{% for edition in editionFestivals %}
-				<div class="col-3">
+				<div class="col-3 mb-5">
 					<div class="card">
 						{% if edition.filename %}
 							<img src="{{ vich_uploader_asset(edition, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">

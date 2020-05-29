@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'adminBase.html.twig' %}
 
 {% block title %}Gérer les films
 {% endblock %}
@@ -17,6 +17,7 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
+					<th>Vignette</th>
 					<th>Titre</th>
 					<th>Actions</th>
 				</tr>
@@ -24,6 +25,13 @@
 			<tbody>
 				{% for festival in festivals%}
 					<tr>
+						<td>
+							{% if festival.filename %}
+								<img src="{{ vich_uploader_asset(festival, 'imageFile') | imagine_filter('small') }}" alt="card-img-top" style="width: 30%; height:auto;">
+							{% else %}
+								<img src="{{ '/images/festivals/empty.jpg' | imagine_filter('small') }}" alt="card-img-top" style="width: 30%; height:auto;">
+							{% endif %}
+						</td>
 						<td>{{ festival.nom }}</td>
 						<td>
                             <a href="{{ path('admin.festival.edit', {id: festival.id}) }}" class="btn btn-secondary">Editer</a>

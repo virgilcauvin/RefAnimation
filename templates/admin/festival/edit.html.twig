@@ -1,10 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends 'adminBase.html.twig' %}
 
 {% block title festival.nom %}
 
 {% block body %}
 	<div class="container mt-4">
         <h1>Editer un festival</h1>
+        <div>
+			{% if festival.filename %}
+				<img src="{{ vich_uploader_asset(festival, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 10%; height:auto;">
+			{% else %}
+				<img src="{{ '/images/festivals/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 10%; height:auto;">
+			{% endif %}
+		</div>
         {{ include('admin/festival/_form.html.twig', {button: 'Editer' }) }}
     </div>
 {% endblock %}

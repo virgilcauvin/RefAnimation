@@ -10,4 +10,8 @@ liip_imagine:
             quality: 75
             filters:
                 thumbnail: { size: [800, 530], mode: inset, allow_upscale: true  }
+        small:
+            quality: 75
+            filters:
+                thumbnail: { size: [90, 115], mode: inset, allow_upscale: true  }
                 

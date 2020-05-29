@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'adminBase.html.twig' %}
 
 {% block title editionFestivals.nom %}
 
@@ -16,14 +16,23 @@
 				<div class="col-md-4">
 					<h1>{{ editionFestivals.nom }}</h1>
 					<h3>{{ editionFestivals.ville }}</h3>
-					<h3>{{ editionFestivals.pays }}</h3>
+					<h3 class="mb-5">{{ editionFestivals.pays }}</h3>
+					<div>
+						<p>Edition du festival :</p>
+						<a href="{{ path('festival.show', {id: editionFestivals.festival.id, slug: editionFestivals.festival.slug}) }}">
+						{% if editionFestivals.festival.filename %}
+							<img src="{{ vich_uploader_asset(editionFestivals.festival, 'imageFile') | imagine_filter('medium') }}" alt="card-img-top" style="width: 100%; height:auto;">
+						{% else %}
+							<img src="{{ '/images/editions/empty.jpg' | imagine_filter('medium') }}" alt="card-img-top" style="width: 100%; height:auto;">
+						{% endif %}</a>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="container mt-4">
 		<p>Dates :
-									du
+			du
 			{{ editionFestivals.dateDebut | date('d-m-Y') }}
 			au
 			{{ editionFestivals.dateFin | date('d-m-Y')}}</p>

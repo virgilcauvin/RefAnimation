@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'adminBase.html.twig' %}
 
 {% block title %}Gérer les studios
 {% endblock %}
@@ -17,6 +17,7 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
+					<th>Vignette</th>
 					<th>Titre</th>
 					<th>Actions</th>
 					<th>Mise à jour</th>
@@ -25,6 +26,13 @@
 			<tbody>
 				{% for studio in studios %}
 					<tr>
+						<td>
+							{% if studio.filename %}
+								<img src="{{ vich_uploader_asset(studio, 'imageFile') | imagine_filter('small') }}" alt="card-img-top" style="width: 30%; height:auto;">
+							{% else %}
+								<img src="{{ '/images/studios/empty.jpg' | imagine_filter('small') }}" alt="card-img-top" style="width: 30%; height:auto;">
+							{% endif %}
+						</td>
 						<td>{{ studio.nom }}</td>
 						<td>
                             <a href="{{ path('admin.studio.edit', {id: studio.id}) }}" class="btn btn-secondary">Editer</a>

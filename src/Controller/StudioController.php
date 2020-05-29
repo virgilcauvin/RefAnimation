@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Search;
+use App\Form\SearchType;
 use App\Repository\StudioRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -21,9 +24,13 @@ class StudioController extends AbstractController
     /**
      * @Route("/studio", name="studio")
      */
-    public function index()
+    public function index(Request $request)
     {
-        $studios = $this->studioRepository->findAll();
+        $search = new Search();
+        $form = $this->createForm(SearchType::class, $search);
+        $form->handleRequest($request);
+
+        $studios = $this->studioRepository->findSearch($search);
         return $this->render('studio/studio.html.twig', [
             'current_menu' => 'studio',
             'studios'=> $studios

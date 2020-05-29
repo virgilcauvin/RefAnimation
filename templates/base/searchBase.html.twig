@@ -1,0 +1,37 @@
+<div class="jumbotron">
+	{{ form_start(form) }}
+	<div class="form-row">
+		<div class="col-12">
+			{{ form_row(form.byText) }}
+		</div>
+		<div class="row">
+			<div class="col">
+				{{ form_row(form.minAnnee) }}
+			</div>
+			<div class="col">
+				{{ form_row(form.maxAnnee) }}
+			</div>
+			<div class="col">
+				{{ form_row(form.byMinDuree) }}
+			</div>
+			<div class="col">
+				{{ form_row(form.byMaxDuree) }}
+			</div>
+			<div class="row">
+				<div class="col">
+					{{ form_row(form.byTraduitFr) }}
+				</div>
+				<div class="col">
+					{{ form_row(form.bySoustitresFr) }}
+				</div>
+				<div class="col">
+					{{ form_row(form.byPublicCible) }}
+				</div>
+			</div>
+		</div>
+		<div class="col-12">
+			<button class="btn btn-primary">Rechercher</button>
+		</div>
+	</div>
+	{{ form_end(form) }}
+</div>

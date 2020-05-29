@@ -15,7 +15,7 @@ class FilmController extends AbstractController
     /**
      * @Var FilmRepository
      */
-    private $repository;
+    private $filmRepository;
 
     public function __construct(FilmRepository $filmRepository)
     {
@@ -36,7 +36,7 @@ class FilmController extends AbstractController
         return $this->render('film/film.html.twig', [
             'current_menu' => 'film',
             'films'=> $films,
-            'form' => $form-> createView()
+            /* 'form' => $form-> createView() */
         ]);
     }
 

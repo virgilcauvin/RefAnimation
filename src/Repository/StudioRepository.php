@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Search;
 use App\Entity\Studio;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Studio|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +18,22 @@ class StudioRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Studio::class);
+    }
+
+    /**
+     * @return Studio[]
+     */
+    public function findSearch(Search $search)
+    {
+        $query = $this->createQueryBuilder('p');
+
+        if ($search->getByText()) {
+            $query = $query
+            ->andWhere('p.nom LIKE :byText')
+            ->setParameter('byText', '%' . $search->getByText() . '%' ); 
+        }
+
+        return $query->getQuery()->getResult();
     }
 
     // /**

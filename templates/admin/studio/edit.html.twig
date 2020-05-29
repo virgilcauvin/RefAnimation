@@ -1,10 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends 'adminBase.html.twig' %}
 
 {% block title studio.nom %}
 
 {% block body %}
 	<div class="container mt-4">
         <h1>Editer le studio</h1>
+        <div>
+			{% if studio.filename %}
+				<img src="{{ vich_uploader_asset(studio, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 10%; height:auto;">
+			{% else %}
+				<img src="{{ '/images/studios/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 10%; height:auto;">
+			{% endif %}
+		</div>
         {{ include('admin/studio/_form.html.twig', {button: 'Editer' }) }}
     </div>
 {% endblock %}

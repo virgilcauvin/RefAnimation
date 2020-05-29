@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
-use App\Repository\EditionFestivalRepository;
+use App\Entity\Search;
+use App\Form\SearchType;
 use App\Repository\FestivalRepository;
+use App\Repository\EditionFestivalRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -23,9 +26,13 @@ class EditionFestivalController extends AbstractController
     /**
      * @Route("/editionFestival", name="editionFestival")
      */
-    public function index()
+    public function index(Request $request)
     {
-        $editionFestivals = $this->editionFestivalRepository->findAll();
+        $search = new Search();
+        $form = $this->createForm(SearchType::class, $search);
+        $form->handleRequest($request);
+
+        $editionFestivals = $this->editionFestivalRepository->findSearch($search);
         return $this->render('editionFestival/editionFestival.html.twig', [
             'current_menu' => 'editionFestival',
             'editionFestivals'=> $editionFestivals
