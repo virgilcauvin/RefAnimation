@@ -50,6 +50,7 @@ class FilmRepository extends ServiceEntityRepository
         if ($search->getByText()) {
             $query = $query
             ->andWhere('p.nom LIKE :byText')
+            ->orWhere('p.realisateur LIKE :byText')
             ->setParameter('byText', '%' . $search->getByText() . '%' ); 
         }
         if ($search->getByTraduitFr()) {

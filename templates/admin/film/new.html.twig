@@ -4,7 +4,7 @@
 
 {% block body %}
 	<div class="container mt-4" id="filmForm">
-		<h1>Ajouter un nouveau film</h1>
+		<h1 id="h1">Ajouter un nouveau film</h1>
 		{{ include('admin/film/_form.html.twig', {button: 'Ajouter' }) }}
 	</div>
 {% endblock %}
@@ -14,6 +14,7 @@
 {% endblock %}
 
 {% block javascripts %}
+	<script src="{{ asset('js/image.js') }}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/js/select2.min.js"></script>
 	<script>
 		$('select').select2();
