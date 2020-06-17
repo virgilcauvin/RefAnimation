@@ -88,7 +88,7 @@ class AdminTypeFestivalController extends AbstractController
     {
             $this->em->remove($typeFestival);
             $this->em->flush(); 
-            $this->addFlash('success', 'La catégorie a bien été supprimé !');
+            $this->addFlash('success', 'Le type de festival a bien été supprimé !');
         return $this->redirectToRoute('admin.typeFestival.index');
     }
 }

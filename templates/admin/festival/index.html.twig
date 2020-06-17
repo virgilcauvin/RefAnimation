@@ -18,12 +18,13 @@
 			<thead>
 				<tr>
 					<th>Vignette</th>
-					<th>Titre</th>
+					<th>Titre  <a href="{{ path('admin.festival.aBOrder') }}">↑</a><a href="{{ path('admin.festival.zYOrder') }}">↓</a> </th>
 					<th>Actions</th>
+					<th>Mise à jour <a href="{{ path('admin.festival.latest') }}">↑</a><a href="{{ path('admin.festival.oldest') }}">↓</a></th>
 				</tr>
 			</thead>
 			<tbody>
-				{% for festival in festivals%}
+				{% for festival in festivals %}
 					<tr>
 						<td>
 							{% if festival.filename %}
@@ -40,6 +41,7 @@
 								<button class="btn btn-danger">Supprimer</button>
 							</form>
                         </td>
+						<td>{{ festival.updated_at | date("d/m/Y H:i")}}</td>
 					</tr>
 				{% endfor %}
 			</tbody>

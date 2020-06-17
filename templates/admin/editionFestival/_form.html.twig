@@ -4,7 +4,64 @@
 	{{ form_widget(form.nom,  {'attr': {'placeholder': 'Nom du festival - année'}}) }}
 	{{ form_errors(form.nom) }}
 </div>
+<div>
+	{{ form_label(form.typeFestivals) }}
+	{{ form_widget(form.typeFestivals) }}
+	{{ form_errors(form.typeFestivals) }}
+	<a href="#modalTypeFest" class="js-modal">ajouter un type de festival</a>
+</div>
+<div>
+	{{ form_label(form.Prixes) }}
+	{{ form_widget(form.Prixes) }}
+	{{ form_errors(form.Prixes) }}
+	{# <a href="#modalPrix" class="js-modal" id="changeColor">ajouter un prix</a> #}
+</div>
+
 {{ form_rest(form) }}
 <button class="btn btn-primary">{{ button|default('Enregistrer')}}</button>
 <a href="{{ path('admin.editionFestival.index') }}" class="btn btn-danger">Retour</a>
 {{ form_end(form) }}
+
+
+<!--Modal TypeFestival-->
+<aside id="modalTypeFest" class="modal" aria-hidden="true" aria-modal="false" role="dialog" aria-labelledby="titlemodal" style="display:none;">
+	<div class="modal-wrapper js-modal-stop">
+		<h2>Ajouter un type de festival</h2>
+		<div>
+			{{ form_label(formTypeFest) }}
+			{{ form_widget(formTypeFest) }}
+			{{ form_errors(formTypeFest) }}
+			<button class="btn btn-primary" id="actionTypeFest">Ajouter</button>
+			<button class="js-modal-close btn btn-danger">Retour</button>
+		</div>
+		<div id="listTypeFest"></div>
+			{% for typeFest in typeFestList %}
+				<p class="typeFestivalList">{{ typeFest.nom }}</p>
+			{% endfor %}
+		</div>
+	</div>
+</aside>
+
+<!-- Modal Prixes -->
+<aside id="modalPrix" class="modal" aria-hidden="true" aria-modal="false" role="dialog" aria-labelledby="titlemodal" style="display:none;">
+	<div class="modal-wrapper js-modal-stop">
+		<h2>Ajouter un prix</h2>
+		<div>
+			{{ form_label(formPrix) }}
+			{{ form_widget(formPrix) }}
+			{{ form_errors(formPrix) }}
+			<button class="btn btn-primary" id="actionPrix">Ajouter</button>
+			<button class="js-modal-close btn btn-danger">Retour</button>
+		</div>
+		<div id="listPrix"></div>
+			{% for prix in prixList %}
+				<p class="prixList">{{ prix.nom }}
+				{#  - {{ prix.editionFestival.nom }} - {{ prix.film.nom }} #}</p>
+			{% endfor %}
+		</div>
+	</div>
+</aside>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{{ asset('js/modal.js') }}"></script>
+<script src="{{ asset('js/ajax.js') }}"></script>

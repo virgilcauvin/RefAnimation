@@ -19,6 +19,18 @@ class PrixRepository extends ServiceEntityRepository
         parent::__construct($registry, Prix::class);
     }
 
+    /**
+    * @return Prix[] Returns an array of Prix objects
+    */
+    public function findAllDesc()
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Prix[] Returns an array of Prix objects
     //  */

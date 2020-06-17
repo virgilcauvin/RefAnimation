@@ -42,6 +42,54 @@ class AdminStudioController extends AbstractController
     }
 
     /**
+     * @Route("/admin/studioLatest", name="admin.studio.latest")
+     */
+    public function indexLatest()
+    {
+        $studios = $this->repository->findLatest();
+        return $this->render('admin/studio/index.html.twig', [
+            'controller_name' => 'AdminStudioController',
+            'studios' => $studios
+        ]);
+    }
+
+    /**
+     * @Route("/admin/studioOldest", name="admin.studio.oldest")
+     */
+    public function indexOldest()
+    {
+        $studios = $this->repository->findOldest();
+        return $this->render('admin/studio/index.html.twig', [
+            'controller_name' => 'AdminStudioController',
+            'studios' => $studios
+        ]);
+    }
+
+    /**
+     * @Route("/admin/studioABOrder", name="admin.studio.aBOrder")
+     */
+    public function indexABOrder()
+    {
+        $studios = $this->repository->findByABorder();
+        return $this->render('admin/studio/index.html.twig', [
+            'controller_name' => 'AdminStudioController',
+            'studios' => $studios
+        ]);
+    }
+
+    /**
+     * @Route("/admin/studioZYOrder", name="admin.studio.zYOrder")
+     */
+    public function indexZYOrder()
+    {
+        $studios = $this->repository->findByZYOrder();
+        return $this->render('admin/studio/index.html.twig', [
+            'controller_name' => 'AdminStudioController',
+            'studios' => $studios
+        ]);
+    }
+
+    /**
      *  @Route("/admin/studio/ajouter", name="admin.studio.new")
      */
     public function new(Request $request)

@@ -36,6 +36,57 @@ class StudioRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
+    /**
+    * @return Studio[] Returns an array of Studio objects
+    */
+    
+    public function findLatest()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.update_at', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+    * @return Studio[] Returns an array of Studio objects
+    */
+    
+    public function findOldest()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.update_at', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+    * @return Studio[] Returns an array of Studio objects in AlphaBetical order
+    */
+    
+    public function findByABOrder()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.nom', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+    * @return Studio[] Returns an array of Studio objects inverse AlphaBetical order
+    */
+    
+    public function findByZYOrder()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.nom', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+   
+
     // /**
     //  * @return Studio[] Returns an array of Studio objects
     //  */

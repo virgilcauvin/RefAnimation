@@ -20,9 +20,9 @@
 			<thead>
 				<tr>
 					<th>Vignette</th>
-					<th>Titre</th>
+					<th>Titre  <a href="{{ path('admin.editionFestival.aBOrder') }}">↑</a><a href="{{ path('admin.editionFestival.zYOrder') }}">↓</a> </th>
 					<th>Actions</th>
-					<th>Mise à jour</th>
+					<th>Mise à jour <a href="{{ path('admin.editionFestival.latest') }}">↑</a><a href="{{ path('admin.editionFestival.oldest') }}">↓</a></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -56,4 +56,8 @@
 			<a href="{{ path('admin.index') }}" class="btn btn-danger">Retour</a>
 		</div>
 	</div>
+{% endblock %}
+
+{% block javascript %}
+	
 {% endblock %}

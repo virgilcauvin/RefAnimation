@@ -22,9 +22,9 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% for prix in prixs %}
+				{% for prix in prixes %}
 					<tr>
-						<td>{{ prix.nom }} - {{ prix.editionFestival.nom }}</td>
+						<td>{{ prix.nom }} - {{ prix.editionFestival.nom }} - {{ prix.film.nom }}</td>
 						<td>
                             <a href="{{ path('admin.prix.edit', {id: prix.id}) }}" class="btn btn-secondary">Editer</a>
 							<form method="post" action="{{ path('admin.prix.delete', {id: prix.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer {{ prix.nom }} ?')" style="display: inline-block">

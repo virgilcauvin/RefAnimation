@@ -48,6 +48,43 @@ class FestivalRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @return Festival[]
+     */
+    public function findOldest(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.updated_at', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+    * @return Festival[] Returns an array of Festival objects in AlphaBetical order
+    */
+    
+    public function findByABOrder()
+    {
+        return $this->createQueryBuilder('f')
+            ->orderBy('f.nom', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+    * @return Festival[] Returns an array of Festival objects in  inverse AlphaBetical order
+    */
+    
+    public function findByZYOrder()
+    {
+        return $this->createQueryBuilder('f')
+            ->orderBy('f.nom', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Festival[] Returns an array of Festival objects
     //  */

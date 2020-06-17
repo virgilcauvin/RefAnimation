@@ -1,5 +1,6 @@
 {{ form_start(form) }}
         {{ form_rest(form) }}
         <button class="btn btn-primary">{{ button|default('Enregistrer')}}</button>
-        <a href="{{ path('admin.typeFestival.index') }}" class="btn btn-danger">Retour</a>
+        {# <a href="{{ path('admin.editionFestival.new') }}" class="btn btn-danger">Retour</a> #}
+        <button class="js-modal-close btn btn-danger">Retour</button>
 {{ form_end(form) }}

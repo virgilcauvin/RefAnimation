@@ -24,19 +24,48 @@
 	{{ form_widget(form.imageFile) }}
 	{{ form_errors(form.imageFile) }}
 </div>
-	<div id="categorie">
-		{{ form_label(form.categories) }}
-		{{ form_widget(form.categories) }}
-		{{ form_errors(form.categories) }}
+<div id="categorie">
+	{{ form_label(form.categories) }}
+	{{ form_widget(form.categories) }}
+	{{ form_errors(form.categories) }}
+</div>
+<div>
+	{{ form_label(form.editionFestivals) }}
+	{{ form_widget(form.editionFestivals) }}
+	{{ form_errors(form.editionFestivals) }}
+</div>
+<div>
+	{{ form_label(form.langues) }}
+	{{ form_widget(form.langues) }}
+	{{ form_errors(form.langues) }}
+	<a href="#modalLangue" class="js-modal">ajouter une langue</a>
+</div>
+<div class="mt-2">
+	{{ form_rest(form) }}
+	<button class="btn btn-primary">{{ button|default('Enregistrer')}}</button>
+	<a href="{{ path('admin.film.index') }}" class="btn btn-danger">Retour</a>
+</div>
+{{ form_end(form) }}
+
+<!--Modal TypeFestival-->
+<aside id="modalLangue" class="modal" aria-hidden="true" aria-modal="false" role="dialog" aria-labelledby="titlemodal" style="display:none;">
+	<div class="modal-wrapper js-modal-stop">
+		<h2 id="changeColor">Ajouter une langue</h2>
+		<div>
+			{{ form_label(formLangue) }}
+			{{ form_widget(formLangue) }}
+			{{ form_errors(formLangue) }}
+			<button class="btn btn-primary" id="actionLangue">Ajouter</button>
+			<button class="js-modal-close btn btn-danger">Retour</button>
+		</div>
+		<div id="listLangueDiv"></div>
+		{% for langue in langueList %}
+			<p class="LangueListP">{{ langue.nom }}</p>
+		{% endfor %}
+		</div>
 	</div>
-	<div>
-		{{ form_label(form.editionFestivals) }}
-		{{ form_widget(form.editionFestivals) }}
-		{{ form_errors(form.editionFestivals) }}
-	</div>
-	<div class="mt-2">
-		{{ form_rest(form) }}
-		<button class="btn btn-primary">{{ button|default('Enregistrer')}}</button>
-		<a href="{{ path('admin.film.index') }}" class="btn btn-danger">Retour</a>
-	</div>
-	{{ form_end(form) }}
+</aside>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{{ asset('js/modal.js') }}"></script>
+<script src="{{ asset('js/ajax.js') }}"></script>

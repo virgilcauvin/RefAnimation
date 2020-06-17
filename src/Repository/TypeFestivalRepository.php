@@ -19,6 +19,19 @@ class TypeFestivalRepository extends ServiceEntityRepository
         parent::__construct($registry, TypeFestival::class);
     }
 
+    /**
+    * @return TypeFestival[] Returns an array of TypeFestival objects
+    */
+    public function findAllDesc()
+    {
+        return $this->createQueryBuilder('t')
+            ->orderBy('t.id', 'Desc')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
+
     // /**
     //  * @return TypeFestival[] Returns an array of TypeFestival objects
     //  */

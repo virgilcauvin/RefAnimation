@@ -34,10 +34,10 @@ class AdminPrixController extends AbstractController
      */
     public function index()
     {
-        $prixs = $this->repository->findAll();
+        $prixes = $this->repository->findAll();
         return $this->render('admin/prix/index.html.twig', [
             'controller_name' => 'AdminPrixController',
-            'prixs' => $prixs
+            'prixes' => $prixes
         ]);
     }
 

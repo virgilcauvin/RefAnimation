@@ -42,6 +42,54 @@ class AdminFestivalController extends AbstractController
     }
 
     /**
+     * @Route("/admin/festivalLatest", name="admin.festival.latest")
+     */
+    public function indexLatest()
+    {
+        $festivals = $this->repository->findLatest();
+        return $this->render('admin/festival/index.html.twig', [
+            'controller_name' => 'AdminFestivalController',
+            'festivals' => $festivals
+        ]);
+    }
+
+    /**
+     * @Route("/admin/festivalOldest", name="admin.festival.oldest")
+     */
+    public function indexOldest()
+    {
+        $festivals = $this->repository->findOldest();
+        return $this->render('admin/festival/index.html.twig', [
+            'controller_name' => 'AdminFestivalController',
+            'festivals' => $festivals
+        ]);
+    }
+
+    /**
+     * @Route("/admin/festivalABOrder", name="admin.festival.aBOrder")
+     */
+    public function indexABOrder()
+    {
+        $festivals = $this->repository->findByABorder();
+        return $this->render('admin/festival/index.html.twig', [
+            'controller_name' => 'AdminfestivalController',
+            'festivals' => $festivals
+        ]);
+    }
+
+    /**
+     * @Route("/admin/festivalZYOrder", name="admin.festival.zYOrder")
+     */
+    public function indexZYOrder()
+    {
+        $festivals = $this->repository->findByZYOrder();
+        return $this->render('admin/festival/index.html.twig', [
+            'controller_name' => 'AdminFestivalController',
+            'festivals' => $festivals
+        ]);
+    }
+
+    /**
      *  @Route("/admin/festival/ajouter", name="admin.festival.new")
      */
     public function new(Request $request)

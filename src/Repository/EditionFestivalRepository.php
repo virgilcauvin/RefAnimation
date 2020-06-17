@@ -35,6 +35,54 @@ class EditionFestivalRepository extends ServiceEntityRepository
 
         return $query->getQuery()->getResult();
     }
+    
+    /**
+    * @return EditionFestival[] Returns an array of EditionFestival objects
+    */
+    public function findLatest()
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.updated_at', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+    * @return EditionFestival[] Returns an array of EditionFestival objects
+    */
+    public function findOldest()
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.updated_at', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+    * @return EditionFestival[] Returns an array of EditionFestival objects in AlphaBetical order
+    */
+    public function findByABOrder()
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.nom', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+    * @return EditionFestival[] Returns an array of EditionFestival objects inverse AlphaBetical order
+    */
+    public function findByZYOrder()
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.nom', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     // /**
     //  * @return EditionFestival[] Returns an array of EditionFestival objects

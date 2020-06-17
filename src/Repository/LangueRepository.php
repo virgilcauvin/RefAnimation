@@ -19,6 +19,19 @@ class LangueRepository extends ServiceEntityRepository
         parent::__construct($registry, Langue::class);
     }
 
+    /**
+    * @return Langue[] Returns an array of Langue objects
+    */
+    public function findAllDesc()
+    {
+        return $this->createQueryBuilder('l')
+            ->orderBy('l.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+   
+
     // /**
     //  * @return Langue[] Returns an array of Langue objects
     //  */
