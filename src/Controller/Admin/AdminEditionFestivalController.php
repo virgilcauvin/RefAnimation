@@ -111,7 +111,8 @@ class AdminEditionFestivalController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($editionFestival);
             $this->em->flush();
-            $this->addFlash('success', 'La catégorie a bien été créé !');
+            $this->addFlash('success', 'L\'édition de festival a bien été créé !');
+            return $this->redirectToRoute('admin.editionFestival.index');
         }
 
         $typeFestival = new TypeFestival();
@@ -144,6 +145,7 @@ class AdminEditionFestivalController extends AbstractController
             $editionFestival->setUpdatedAt(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
             $this->em->flush();
             $this->addFlash('success', 'L\'édition du festival a bien été modifié !');
+            return $this->redirectToRoute('admin.editionFestival.index');
         }
 
         $typeFestival = new TypeFestival();

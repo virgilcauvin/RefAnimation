@@ -53,7 +53,7 @@ class AdminPublicCibleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($public_cible);
             $this->em->flush();
-            $this->addFlash('success', 'La catégorie a bien été créé !');
+            $this->addFlash('success', 'Le public cible a bien été créé !');
             return $this->redirectToRoute('admin.public_cible.index');
         }
         return $this->render('admin/public_cible/new.html.twig', [
@@ -72,7 +72,7 @@ class AdminPublicCibleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->flush();
-            $this->addFlash('success', 'La catégorie a bien été modifié !');
+            $this->addFlash('success', 'Le ublic cible a bien été modifié !');
             return $this->redirectToRoute('admin.public_cible.index');
         }
         return $this->render('admin/public_cible/edit.html.twig', [
@@ -88,7 +88,7 @@ class AdminPublicCibleController extends AbstractController
     {
             $this->em->remove($public_cible);
             $this->em->flush(); 
-            $this->addFlash('success', 'La catégorie a bien été supprimé !');
+            $this->addFlash('success', 'Le public cible a bien été supprimé !');
         return $this->redirectToRoute('admin.public_cible.index');
     }
 }

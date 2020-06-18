@@ -53,7 +53,7 @@ class AdminLangueController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($langue);
             $this->em->flush();
-            $this->addFlash('success', 'La catégorie a bien été créé !');
+            $this->addFlash('success', 'La langue a bien été créé !');
             return $this->redirectToRoute('admin.langue.index');
         }
         return $this->render('admin/langue/new.html.twig', [
@@ -72,7 +72,7 @@ class AdminLangueController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->flush();
-            $this->addFlash('success', 'La catégorie a bien été modifié !');
+            $this->addFlash('success', 'La langue a bien été modifié !');
             return $this->redirectToRoute('admin.langue.index');
         }
         return $this->render('admin/langue/edit.html.twig', [
@@ -88,7 +88,7 @@ class AdminLangueController extends AbstractController
     {
             $this->em->remove($langue);
             $this->em->flush(); 
-            $this->addFlash('success', 'La catégorie a bien été supprimé !');
+            $this->addFlash('success', 'La langue a bien été supprimé !');
         return $this->redirectToRoute('admin.langue.index');
     }
 }

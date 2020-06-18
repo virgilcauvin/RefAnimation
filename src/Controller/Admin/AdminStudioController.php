@@ -102,7 +102,7 @@ class AdminStudioController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($studio);
             $this->em->flush();
-            $this->addFlash('success', 'La catégorie a bien été créé !');
+            $this->addFlash('success', 'Le studio a bien été créé !');
             return $this->redirectToRoute('admin.studio.index');
         }
         return $this->render('admin/studio/new.html.twig', [

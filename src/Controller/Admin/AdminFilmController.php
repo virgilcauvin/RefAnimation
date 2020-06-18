@@ -109,6 +109,7 @@ class AdminFilmController extends AbstractController
             $this->em->persist($film);
             $this->em->flush();
             $this->addFlash('success', 'Le film a bien été créé !');
+            return $this->redirectToRoute('admin.film.index');
         }
 
         $langue = new Langue();
@@ -136,6 +137,7 @@ class AdminFilmController extends AbstractController
             $film->setUpdatedAt(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
             $this->em->flush();
             $this->addFlash('success', 'Le film a bien été modifié !');
+            return $this->redirectToRoute('admin.film.index');
         }
 
         $langue = new Langue();

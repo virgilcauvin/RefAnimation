@@ -102,7 +102,7 @@ class AdminFestivalController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($festival);
             $this->em->flush();
-            $this->addFlash('success', 'La catégorie a bien été créé !');
+            $this->addFlash('success', 'Le festival a bien été créé !');
             return $this->redirectToRoute('admin.festival.index');
         }
         return $this->render('admin/festival/new.html.twig', [
