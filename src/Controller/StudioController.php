@@ -33,7 +33,8 @@ class StudioController extends AbstractController
         $studios = $this->studioRepository->findSearch($search);
         return $this->render('studio/studio.html.twig', [
             'current_menu' => 'studio',
-            'studios'=> $studios
+            'studios'=> $studios,
+            'form' => $form->createView()
         ]);
     }
 

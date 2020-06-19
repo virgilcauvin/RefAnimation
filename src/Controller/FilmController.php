@@ -32,11 +32,10 @@ class FilmController extends AbstractController
         $form->handleRequest($request);
 
         $films = $this->filmRepository->findSearch($search);
-        //$films = $this->filmRepository->findAll();
         return $this->render('film/film.html.twig', [
             'current_menu' => 'film',
             'films'=> $films,
-            /* 'form' => $form-> createView() */
+            'form' => $form-> createView()
         ]);
     }
 

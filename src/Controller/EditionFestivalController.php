@@ -35,7 +35,8 @@ class EditionFestivalController extends AbstractController
         $editionFestivals = $this->editionFestivalRepository->findSearch($search);
         return $this->render('editionFestival/editionFestival.html.twig', [
             'current_menu' => 'editionFestival',
-            'editionFestivals'=> $editionFestivals
+            'editionFestivals'=> $editionFestivals,
+            'form' => $form->createView()
         ]);
     }
 

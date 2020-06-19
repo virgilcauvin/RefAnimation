@@ -33,11 +33,10 @@ class FestivalController extends AbstractController
         $form->handleRequest($request);
 
         $festivals = $this->festivalRepository->findSearch($search);
-        /* $festivals = $this->festivalRepository->findAll(); */
         return $this->render('festival/festival.html.twig', [
             'current_menu' => 'festival',
             'festivals'=> $festivals,
-            /* 'form' => $form-> createView() */
+            'form' => $form-> createView()
         ]);
     }
 
