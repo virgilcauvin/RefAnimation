@@ -29,35 +29,12 @@ class HomeController extends AbstractController
         $films = $this->filmRepository->findSearch($search);
         $festivals = $festivalRepository->findSearch($search);
 
-        $texte = $request->query->get('byText', " Aucune recherche");
-        $publicCible = $request->query->get('byPublicCible', " Aucun public cible");
-        
-
-        /* $films = $filmRepository->findLatest();
-            $festivals = $festivalRepository->findLatest(); */
         return $this->render('home/home.html.twig', [
             'controller_name' => 'HomeController',
+            'form' => $form->createView(),
             'films' => $films,
             'festivals' => $festivals,
-            'texte' => $texte,
-            'publicCible' => $publicCible
         ]);
     }
 
-    /**
-     * Function pour le template base.html.twig
-     */
-    public function searchBase(Request $request)
-    {
-        $search = new Search();
-        $form = $this->createForm(SearchType::class, $search);
-        $form->handleRequest($request);
-
-        
-
-        return $this->render('base/searchBase.html.twig', [
-            'form' => $form->createView(),
-            
-        ]);
-    }
 }

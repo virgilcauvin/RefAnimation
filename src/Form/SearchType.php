@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\PublicCible;
+use App\Entity\Langue;
 use App\Entity\Search;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -53,6 +54,12 @@ class SearchType extends AbstractType
                 'choice_label' => 'nom',
                 'required' => false,
                 'label' => 'Public cible'
+            ])
+            ->add('byLangue', EntityType::class,[
+                'class' => Langue::class,
+                'choice_label' => 'nom',
+                'required' => false,
+                'label' => 'Langue'
             ])
         ;
     }

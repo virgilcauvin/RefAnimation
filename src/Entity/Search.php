@@ -47,6 +47,12 @@ class Search
     private $byPublicCible;
 
     /**
+     * @var Collection|Langue[]
+     */
+    private $byLangue;
+
+
+    /**
      * @return  int|null
      */ 
     public function getMaxAnnee()
@@ -217,6 +223,30 @@ class Search
     public function setByPublicCible($byPublicCible)
     {
         $this->byPublicCible = $byPublicCible;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of byLangue
+     *
+     * @return  Collection|Langue[]
+     */ 
+    public function getByLangue()
+    {
+        return $this->byLangue;
+    }
+
+    /**
+     * Set the value of byLangue
+     *
+     * @param  Collection|Langue[]  $byLangue
+     *
+     * @return  self
+     */ 
+    public function setByLangue($byLangue)
+    {
+        $this->byLangue = $byLangue;
 
         return $this;
     }

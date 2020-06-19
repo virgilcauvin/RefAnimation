@@ -2,7 +2,9 @@
 	{{ form_start(form) }}
 	<div class="form-row">
 		<div class="col-12">
-			{{ form_row(form.byText) }}
+			{{ form_label(form.byText) }}
+			{{ form_widget(form.byText) }}
+			{{ form_errors(form.byText) }}
 		</div>
 		<div class="row">
 			<div class="col">
@@ -26,6 +28,12 @@
 				</div>
 				<div class="col">
 					{{ form_row(form.byPublicCible) }}
+				</div>
+				<div class="col">
+
+					{{ form_label(form.byLangue) }}
+					{{ form_widget(form.byLangue) }}
+					{{ form_errors(form.byLangue) }}
 				</div>
 			</div>
 		</div>

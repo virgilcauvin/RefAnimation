@@ -69,6 +69,12 @@ class FilmRepository extends ServiceEntityRepository
             ->andWhere('public_cible.id LIKE :byPublicCible')
             ->setParameter('byPublicCible', $search->getByPublicCible());
         }
+        if ($search->getByLangue()) {
+            $query = $query
+            ->leftJoin('p.langues', 'langue')
+            ->andWhere('langue.id LIKE :byLangue')
+            ->setParameter('byLangue', $search->getByLangue());
+        }
         
         
         return $query->getQuery()->getResult();
