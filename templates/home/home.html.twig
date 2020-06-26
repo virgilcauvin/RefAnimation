@@ -29,8 +29,12 @@
 									<p class="card-text">{{ film.description | slice(0,50) }}...</p>
 									<div class="text-primary">
 										- Durée :
-										{{ film.duree }}
-										min
+										{% if film.duree  %}
+											{{ film.duree }} min 
+										{% endif %}
+										{% if film.seconde %}
+											{{ film.seconde }} seconde
+										{% endif %}
 									</div>
 									<div class="text-primary">
 										- Sortie :

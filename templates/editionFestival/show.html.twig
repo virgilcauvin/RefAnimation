@@ -82,7 +82,12 @@
 							</div>
 							<div class="text-primary">
 								- Durée :
-								{{ prix.film.duree }} min {{ prix.film.seconde }} seconde
+								{% if prix.film.duree  %}
+									{{ prix.film.duree }} min 
+								{% endif %}
+								{% if prix.film.seconde %}
+									{{ prix.film.seconde }} seconde
+								{% endif %}
 							</div>
 							<div class="text-primary">
 								- Sortie :

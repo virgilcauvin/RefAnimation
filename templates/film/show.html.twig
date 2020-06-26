@@ -20,7 +20,13 @@
 					<h3>Sortie :
 						{{films.date}}</h3>
 					<h3>Durée :
-						{{ films.duree }} min {{ films.seconde }} seconde</h3>
+						{% if films.duree  %}
+							{{ films.duree }} min 
+						{% endif %}
+						{% if films.seconde %}
+							{{ films.seconde }} seconde
+						{% endif %}
+					</h3>
 					<div class="container">
 						<p>Studios :</p>
 						<div class="row flex">

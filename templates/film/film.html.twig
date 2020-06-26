@@ -25,7 +25,13 @@
 							</h5>
 							<p class="card-text">{{ film.description | slice(0,50) }}...</p>
 							<p>Durée :
-								{{ film.duree }} min {{film.seconde}} sec</p>
+								{% if film.duree  %}
+									{{ film.duree }} min 
+								{% endif %}
+								{% if film.seconde %}
+									{{ film.seconde }} seconde
+								{% endif %}
+							</p>
 						</div>
 					</div>
 				</div>
