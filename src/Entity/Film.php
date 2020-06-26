@@ -58,6 +58,11 @@ class Film
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
+    private $seconde;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
     private $date;
 
     /**
@@ -137,6 +142,11 @@ class Film
      */
     private $prixes;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Selection", mappedBy="films")
+     */
+    private $selections;
+
     public function __construct()
     {
         $this->created_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
@@ -147,6 +157,7 @@ class Film
         $this->EditionFestivals = new ArrayCollection();
         $this->studios = new ArrayCollection();
         $this->prixes = new ArrayCollection();
+        $this->selections = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -191,6 +202,18 @@ class Film
     public function setDuree(?int $duree): self
     {
         $this->duree = $duree;
+
+        return $this;
+    }
+
+    public function getSeconde(): ?int
+    {
+        return $this->seconde;
+    }
+
+    public function setSeconde(?int $seconde): self
+    {
+        $this->seconde = $seconde;
 
         return $this;
     }
@@ -541,4 +564,33 @@ class Film
 
         return $this;
     }
+
+    /**
+     * @return Collection|Selection[]
+     */
+    public function getSelections(): Collection
+    {
+        return $this->selections;
+    }
+
+    public function addSelection(Selection $selection): self
+    {
+        if (!$this->selections->contains($selection)) {
+            $this->selections[] = $selection;
+            $selection->addFilm($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSelection(Selection $selection): self
+    {
+        if ($this->selections->contains($selection)) {
+            $this->selections->removeElement($selection);
+            $selection->removeFilm($this);
+        }
+
+        return $this;
+    }
+
 }

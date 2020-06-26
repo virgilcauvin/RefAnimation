@@ -49,8 +49,11 @@ class FilmRepository extends ServiceEntityRepository
         }
         if ($search->getByText()) {
             $query = $query
+            ->leftJoin('p.categories', 'categorie')
             ->andWhere('p.nom LIKE :byText')
             ->orWhere('p.realisateur LIKE :byText')
+            ->orWhere('p.date LIKE :byText')
+            ->orWhere('categorie.nom LIKE :byText')
             ->setParameter('byText', '%' . $search->getByText() . '%' ); 
         }
         if ($search->getByTraduitFr()) {
@@ -74,8 +77,7 @@ class FilmRepository extends ServiceEntityRepository
             ->leftJoin('p.langues', 'langue')
             ->andWhere('langue.id LIKE :byLangue')
             ->setParameter('byLangue', $search->getByLangue());
-        }
-        
+        }  
         
         return $query->getQuery()->getResult();
     }

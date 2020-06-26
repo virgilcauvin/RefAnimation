@@ -20,11 +20,12 @@
 					<div>
 						<p>Edition du festival :</p>
 						<a href="{{ path('festival.show', {id: editionFestivals.festival.id, slug: editionFestivals.festival.slug}) }}">
-						{% if editionFestivals.festival.filename %}
-							<img src="{{ vich_uploader_asset(editionFestivals.festival, 'imageFile') | imagine_filter('medium') }}" alt="card-img-top" style="width: 100%; height:auto;">
-						{% else %}
-							<img src="{{ '/images/editions/empty.jpg' | imagine_filter('medium') }}" alt="card-img-top" style="width: 100%; height:auto;">
-						{% endif %}</a>
+							{% if editionFestivals.festival.filename %}
+								<img src="{{ vich_uploader_asset(editionFestivals.festival, 'imageFile') | imagine_filter('medium') }}" alt="card-img-top" style="width: 100%; height:auto;">
+							{% else %}
+								<img src="{{ '/images/editions/empty.jpg' | imagine_filter('medium') }}" alt="card-img-top" style="width: 100%; height:auto;">
+							{% endif %}
+						</a>
 					</div>
 				</div>
 			</div>
@@ -32,7 +33,7 @@
 	</div>
 	<div class="container mt-4">
 		<p>Dates :
-			du
+												du
 			{{ editionFestivals.dateDebut | date('d-m-Y') }}
 			au
 			{{ editionFestivals.dateFin | date('d-m-Y')}}</p>
@@ -48,56 +49,20 @@
 		<a href="{{ editionFestivals.festival.lien }}" target="_blank">{{ editionFestivals.festival.lien }}</a>
 	{% else %}
 		<p>Non renseigné !</p>
-	{% endif %}</p>
+	{% endif %}
+</p>
 <p>Type de festival :
 	{% for type in editionFestivals.typeFestivals %}
-		<p>- {{ type.nom }}</p>
+		<p>-
+			{{ type.nom }}</p>
 	{% endfor %}
 </p>
 
-{# <div class="container">
-	<p>Festivals :</p>
-	<div class="row flex">
-		{% for film in editionFestivals.films %}
-			<div class="col-3">
-				<div class="card">
-					<a href="{{ path('film.show', {id: film.id, slug: film.slug}) }}">
-						{% if film.filename %}
-							<img src="{{ vich_uploader_asset(film, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
-						{% else %}
-							<img src="{{ '/images/editions/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
-						{% endif %}
-
-						<div class="card-body">
-							<h5 class="card-title">
-								{{ film.nom }}
-							</h5>
-							<div class="text-primary">
-								<p class="card-text">{{ film.description | slice(0,50) }}...</p>
-							</div>
-							<div class="text-primary">
-								- Durée :
-								{{ film.duree }}
-								min
-							</div>
-							<div class="text-primary">
-								- Sortie :
-								{{ film.date }}
-							</div>
-						</div>
-					</a>
-				</div>
-			</div>
-		{% else %}
-			<p>Cette edition de festival n'a pas encore été associé à des films !</p>
-		{% endfor %}
-	</div>
-</div> #}
 <div class="container">
 	<p>Prix :</p>
 	<div class="row flex">
 		{% for prix in editionFestivals.prixes %}
-			
+
 			<div class="col-3">
 				{{ prix.nom }}
 				<div class="card">
@@ -117,8 +82,7 @@
 							</div>
 							<div class="text-primary">
 								- Durée :
-								{{ prix.film.duree }}
-								min
+								{{ prix.film.duree }} min {{ prix.film.seconde }} seconde
 							</div>
 							<div class="text-primary">
 								- Sortie :
@@ -133,5 +97,37 @@
 		{% endfor %}
 	</div>
 </div>
-</div>
-{% endblock %}
+
+<div class="container">
+	<p>Film par sélection :</p>
+	<div class="row flex">
+		{% for selection in editionFestivals.selections %}
+				<div class="col-12">
+					{{ selection.nom }}
+				</div>
+				{% for film in selection.films %}
+					<div class="col-2">
+						{{ film.nom }}
+						<div class="card">
+							<a href="{{ path('film.show', {id: film.id, slug: film.slug}) }}">
+								{% if film.filename %}
+									<img src="{{ vich_uploader_asset(film, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+								{% else %}
+									<img src="{{ '/images/films/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+								{% endif %}
+
+								<div class="card-body">
+									<h5 class="card-title">
+										{{ film.nom }}
+									</h5>
+								</div>
+							</a>
+						</div>
+					</div>
+				{% else %}
+					<p>Cette sélection n'a pas encore été associé à des films</p>
+				{% endfor %}
+				<br>
+		{% endfor %}
+	</div>
+</div>{% endblock %}

@@ -25,6 +25,7 @@ class FilmType extends AbstractType
             ->add('description')
             ->add('duree')
             ->add('date')
+            ->add('seconde')
             ->add('realisateur')
             ->add('annee_de_production')
             ->add('duree_de_production')

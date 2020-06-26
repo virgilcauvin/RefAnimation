@@ -20,8 +20,7 @@
 					<h3>Sortie :
 						{{films.date}}</h3>
 					<h3>Durée :
-						{{ films.duree }}
-						min</h3>
+						{{ films.duree }} min {{ films.seconde }} seconde</h3>
 					<div class="container">
 						<p>Studios :</p>
 						<div class="row flex">
@@ -71,7 +70,7 @@
 			<p>Sous-titre en français</p>
 		{% endif %}
 	</div>
-	<div class="container">
+	{# <div class="container">
 			<p>Séléctionné aux festivals :</p>
 			<div class="row flex">
 				{% for edition in films.editionFestivals %}
@@ -104,7 +103,7 @@
 					<p>Ce film n'a pas encore été associé à des féstivals !</p>
 				{% endfor %}
 			</div>
-		</div>
+		</div> #}
 	<div class="container">
 		<p>Prix reçus :</p>
 		<div class="row flex">
@@ -133,6 +132,16 @@
 	</div>
 </div>
 <div class="container mt-4">
+	{% if films.selections is not empty%}
+		<p>Sélections :</p>
+		{% for selection in films.selections %}
+			<ul>
+				<li><a href="{{ path('editionFestival.show', {id: selection.editionFestivals.id, slug: selection.editionFestivals.slug}) }}">{{ selection.nom }} - {{ selection.EditionFestivals.nom }}</a></li>
+			</ul>
+		{% endfor %}
+	{% else %}
+		<p>Ce film n'a pas encore été associé à des sélections !</p>
+	{% endif %}
 	{% if films.categories is not empty%}
 		<p>Catégories :</p>
 		<ul>

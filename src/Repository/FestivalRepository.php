@@ -31,6 +31,7 @@ class FestivalRepository extends ServiceEntityRepository
             $query = $query
             ->andWhere('p.nom LIKE :byText')
             ->orWhere('p.ville LIKE :byText')
+            ->orWhere('p.pays LIKE :byText')
             ->setParameter('byText', '%' . $search->getByText() . '%' ); 
         }
 

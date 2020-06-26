@@ -12,6 +12,7 @@ use App\Repository\PrixRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\TypeFestivalRepository;
 use App\Repository\EditionFestivalRepository;
+use App\Repository\FilmRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,11 +31,12 @@ class AdminEditionFestivalController extends AbstractController
      */
     private $em;
 
-    public function __construct(EditionFestivalRepository $repository, TypeFestivalRepository $typeFestRepo, PrixRepository $prixRepo, EntityManagerInterface $em)
+    public function __construct(EditionFestivalRepository $repository, TypeFestivalRepository $typeFestRepo, PrixRepository $prixRepo,FilmRepository $filmRepo, EntityManagerInterface $em)
     {
         $this->repository = $repository;
         $this->typeFestRepo = $typeFestRepo;
         $this->prixRepo = $prixRepo;
+        $this->filmRepo = $filmRepo;
         $this->em = $em;
     }
 
@@ -208,12 +210,14 @@ class AdminEditionFestivalController extends AbstractController
     public function prixAjax(EntityManagerInterface $em, Request $request)
     {
         $prixNom = $request->request->get('prixNom');
-        $prixEdFest = $request->request->get('prixEdFest', );
+        $prixEdFest = $request->request->get('prixEdFest');
+        $editionFestival = $this->repository->find($prixEdFest);
         $prixFilm = $request->request->get('prixFilm');
+        $film = $this->filmRepo->find($prixFilm);
         $prix = new Prix();
         $prix->setNom($prixNom);
-        $prix->setEditionFestival($prixEdFest);
-        $prix->setFilm($prixFilm);
+        $prix->setEditionFestival($editionFestival);
+        $prix->setFilm($film);
         $em->persist($prix);
         $em->flush();
 

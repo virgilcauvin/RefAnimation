@@ -106,12 +106,18 @@ class EditionFestival
      */
     private $TypeFestivals;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Selection", mappedBy="editionFestivals")
+     */
+    private $selections;
+
     public function __construct()
     {
         $this->created_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
         $this->films = new ArrayCollection();
         $this->prixes = new ArrayCollection();
         $this->TypeFestivals = new ArrayCollection();
+        $this->selections = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -369,6 +375,37 @@ class EditionFestival
     {
         if ($this->TypeFestivals->contains($typeFestival)) {
             $this->TypeFestivals->removeElement($typeFestival);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Selection[]
+     */
+    public function getSelections(): Collection
+    {
+        return $this->selections;
+    }
+
+    public function addSelection(Selection $selection): self
+    {
+        if (!$this->selections->contains($selection)) {
+            $this->selections[] = $selection;
+            $selection->setEditionFestivals($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSelection(Selection $selection): self
+    {
+        if ($this->selections->contains($selection)) {
+            $this->selections->removeElement($selection);
+            // set the owning side to null (unless already changed)
+            if ($selection->getEditionFestivals() === $this) {
+                $selection->setEditionFestivals(null);
+            }
         }
 
         return $this;

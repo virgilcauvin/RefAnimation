@@ -14,7 +14,7 @@
 	{{ form_label(form.Prixes) }}
 	{{ form_widget(form.Prixes) }}
 	{{ form_errors(form.Prixes) }}
-	{# <a href="#modalPrix" class="js-modal" id="changeColor">ajouter un prix</a> #}
+	<a href="#modalPrix" class="js-modal" id="changeColor">ajouter un prix</a>
 </div>
 
 {{ form_rest(form) }}
@@ -56,7 +56,7 @@
 		<div id="listPrix"></div>
 			{% for prix in prixList %}
 				<p class="prixList">{{ prix.nom }}
-				{#  - {{ prix.editionFestival.nom }} - {{ prix.film.nom }} #}</p>
+				 - {{ prix.editionFestival.nom }} - {{ prix.film.nom }}</p>
 			{% endfor %}
 		</div>
 	</div>
