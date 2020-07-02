@@ -43,7 +43,7 @@ $( document ).ready(function() {
         var prixNom = $('#prix_nom').val();
         var prixEdFest = $('#prix_editionFestival').val();
         var prixFilm = $('#prix_film').val();
-        alert(prixNom +" " + prixFilm +" " + prixEdFest )
+        /* alert(prixNom +" " + prixFilm +" " + prixEdFest ) */
         $.ajax({
             url: "/admin/editionFestival/ajouter/prixAjax",
             type: 'POST',
@@ -97,6 +97,42 @@ $( document ).ready(function() {
                 })
                 
                 $('#film_langues').change();
+            })
+                /* console.log(data); */ },
+            error: function() {
+                console.log('La requete n\'a pas abouti'); }
+        })
+        e.preventDefault();
+    })
+})
+
+/**
+ * Fonction Ajax pour enregistrer et rafraichir dynamiquement
+ * ici pour les Poste dans AdminTechnicien
+ */ 
+$( document ).ready(function() {
+    $('#actionPoste').click(function(e) {
+        var posteNom = $('#poste_nom').val();
+        var posteFilm = $('#poste_film').val();
+        /* alert(posteNom +" " + posteFilm) */
+        $.ajax({
+            url: "/admin/technicien/ajouter/posteAjax",
+            type: 'POST',
+            dataType: 'json',
+            data: {'posteNom': posteNom , 'posteFilm': posteFilm },
+            async: true,
+            success: function(data) {
+                $('#listPoste').empty();
+                $('.posteList').empty();
+                $.each(data, function (id, nom) {
+                $('#listPoste').prepend($('<p="'+ id + '">' + nom + '</p>'))
+                $('#poste_nom').val("");
+                $('#technicien_postes').empty();
+                $.each(data, function (id, nom) {
+                    $('#technicien_postes').prepend($('<option value="'+ id + '">' + nom + '</option>'))
+                })
+                
+                $('#technicien_postes').change();
             })
                 /* console.log(data); */ },
             error: function() {

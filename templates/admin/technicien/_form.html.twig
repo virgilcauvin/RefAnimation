@@ -1,0 +1,66 @@
+{{ form_start(form) }}
+<div>
+	{{ form_label(form.nom) }}
+	{{ form_widget(form.nom) }}
+	{{ form_errors(form.nom) }}
+</div>
+<div>
+	{{ form_label(form.adresse) }}
+	{{ form_widget(form.adresse) }}
+	{{ form_errors(form.adresse) }}
+</div>
+<div>
+	{{ form_label(form.mail) }}
+	{{ form_widget(form.mail) }}
+	{{ form_errors(form.mail) }}
+</div>
+<div>
+	{{ form_label(form.telephone) }}
+	{{ form_widget(form.telephone) }}
+	{{ form_errors(form.telephone) }}
+</div>
+<div>
+	{{ form_label(form.pays) }}
+	{{ form_widget(form.pays) }}
+	{{ form_errors(form.pays) }}
+</div>
+<div>
+	{{ form_label(form.studios) }}
+	{{ form_widget(form.studios) }}
+	{{ form_errors(form.studios) }}
+</div>
+<div>
+	{{ form_label(form.postes) }}
+	{{ form_widget(form.postes) }}
+	{{ form_errors(form.postes) }}
+	<a href="#modalPoste" class="js-modal" id="changeColor">ajouter un poste</a>
+</div>
+<div class="mt-2">
+	{{ form_rest(form) }}
+	<button class="btn btn-primary">{{ button|default('Enregistrer')}}</button>
+	<a href="{{ path('admin.technicien.index') }}" class="btn btn-danger">Retour</a>
+</div>
+{{ form_end(form) }}
+
+<!-- Modal Poste -->
+<aside id="modalPoste" class="modal" aria-hidden="true" aria-modal="false" role="dialog" aria-labelledby="titlemodal" style="display:none;">
+	<div class="modal-wrapper js-modal-stop">
+		<h2>Ajouter un poste</h2>
+		<div>
+			{{ form_label(formPoste) }}
+			{{ form_widget(formPoste) }}
+			{{ form_errors(formPoste) }}
+			<button class="btn btn-primary" id="actionPoste">Ajouter</button>
+			<button class="js-modal-close btn btn-danger">Retour</button>
+		</div>
+		<div id="listPoste"></div>
+			{% for poste in posteList %}
+				<p class="posteList">{{ poste.nom }} - {{ poste.film.nom }}</p>
+			{% endfor %}
+		</div>
+	</div>
+</aside>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{{ asset('js/modal.js') }}"></script>
+<script src="{{ asset('js/ajax.js') }}"></script>

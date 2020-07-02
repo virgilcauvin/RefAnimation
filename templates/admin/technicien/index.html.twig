@@ -1,0 +1,46 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Gérer les techniciens
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Gérer les techniciens</h1>
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+			
+		{% endfor %}
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Titre  <a href="{{ path('admin.technicien.aBOrder') }}">↑</a><a href="{{ path('admin.technicien.zYOrder') }}">↓</a> </th>
+					<th>Actions</th>
+					{# <th>Mise à jour <a href="{{ path('admin.technicien.latest') }}">↑</a><a href="{{ path('admin.technicien.oldest') }}">↓</a></th> #}
+				</tr>
+			</thead>
+			<tbody>
+				{% for tech in techs %}
+					<tr>
+						<td>{{ tech.nom }}</td>
+						<td>
+                            <a href="{{ path('admin.technicien.edit', {id: tech.id}) }}" class="btn btn-secondary">Editer</a>
+							<form method="post" action="{{ path('admin.technicien.delete', {id: tech.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer {{ tech.nom }} ?')" style="display: inline-block">
+								<input type="hidden" name="_method" value="DELETE">
+								<button class="btn btn-danger">Supprimer</button>
+							</form>
+                        </td>
+						{# <td>{{ technicien.updateAt | date("d/m/Y H:i")}}</td> #}
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="text-right">
+			<a href="{{ path('admin.technicien.new') }}" class="btn btn-primary">Ajouter un nouveau technicien</a>
+			<a href="{{ path('admin.index') }}" class="btn btn-danger">Retour</a>
+		</div>
+	</div>
+{% endblock %}

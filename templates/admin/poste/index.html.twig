@@ -1,0 +1,46 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Gérer les postes
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Gérer les postes</h1>
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+			
+		{% endfor %}
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Titre  <a href="{{ path('admin.poste.aBOrder') }}">↑</a><a href="{{ path('admin.poste.zYOrder') }}">↓</a> </th>
+					<th>Actions</th>
+					{# <th>Mise à jour <a href="{{ path('admin.poste.latest') }}">↑</a><a href="{{ path('admin.poste.oldest') }}">↓</a></th> #}
+				</tr>
+			</thead>
+			<tbody>
+				{% for poste in postes %}
+					<tr>
+						<td>{{ poste.nom }} - {{ poste.film.nom }}</td>
+						<td>
+                            <a href="{{ path('admin.poste.edit', {id: poste.id}) }}" class="btn btn-secondary">Editer</a>
+							<form method="post" action="{{ path('admin.poste.delete', {id: poste.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer {{ poste.nom }} ?')" style="display: inline-block">
+								<input type="hidden" name="_method" value="DELETE">
+								<button class="btn btn-danger">Supprimer</button>
+							</form>
+                        </td>
+						{# <td>{{ poste.updateAt | date("d/m/Y H:i")}}</td> #}
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="text-right">
+			<a href="{{ path('admin.poste.new') }}" class="btn btn-primary">Ajouter un nouveau poste</a>
+			<a href="{{ path('admin.index') }}" class="btn btn-danger">Retour</a>
+		</div>
+	</div>
+{% endblock %}
