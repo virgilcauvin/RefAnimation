@@ -71,10 +71,16 @@ class Studio
      */
     private $type;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Technicien", mappedBy="studios")
+     */
+    private $techniciens;
+
     public function __construct()
     {
         $this->created_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
         $this->Films = new ArrayCollection();
+        $this->techniciens = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -231,6 +237,34 @@ class Studio
     public function setType(?string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Technicien[]
+     */
+    public function getTechniciens(): Collection
+    {
+        return $this->techniciens;
+    }
+
+    public function addTechnicien(Technicien $technicien): self
+    {
+        if (!$this->techniciens->contains($technicien)) {
+            $this->techniciens[] = $technicien;
+            $technicien->addStudio($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTechnicien(Technicien $technicien): self
+    {
+        if ($this->techniciens->contains($technicien)) {
+            $this->techniciens->removeElement($technicien);
+            $technicien->removeStudio($this);
+        }
 
         return $this;
     }

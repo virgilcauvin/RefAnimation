@@ -225,7 +225,7 @@ class AdminEditionFestivalController extends AbstractController
 
         $prixTab = [];
         foreach ($prixList as $prix){
-            $prixTab[$prix->getId()] = $prix->getNom();
+            $prixTab[$prix->getId()] = $prix->getNom() . " - " . $prix->getEditionFestival()->getNom() . " - " . $prix->getFilm()->getNom();
         }  
              
         $response = new Response(json_encode($prixTab));

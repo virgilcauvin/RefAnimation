@@ -116,7 +116,7 @@ class AdminStudioController extends AbstractController
      */
     public function edit(Studio $studio, Request $request, $id)
     {
-        $festistudioal = $this->repository->find($id);
+        $studio = $this->repository->find($id);
         $form = $this->createForm(StudioType::class, $studio);
         $form->handleRequest($request);
 

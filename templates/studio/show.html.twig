@@ -57,4 +57,18 @@
 			{% endfor %}
 		</div>
 	</div>
+	<div class="container mt-4">
+		Personnels :
+		{% for tech in studios.techniciens %}
+			<p>{{ tech.nom }} - 
+				{% for poste in tech.postes %}
+					{% for studio in poste.film.studios %}
+						{% if studio == studios %}
+							{{ poste.nom }} - {{ poste.film.nom }}
+						{% endif %}
+					{% endfor %}
+				{% endfor %}
+			</p>
+		{% endfor %}
+	</div>
 {% endblock %}

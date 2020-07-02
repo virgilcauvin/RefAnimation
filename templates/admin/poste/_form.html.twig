@@ -1,0 +1,7 @@
+{{ form_start(form) }}
+	<div class="mt-2">
+		{{ form_rest(form) }}
+		<button class="btn btn-primary">{{ button|default('Enregistrer')}}</button>
+		<a href="{{ path('admin.poste.index') }}" class="btn btn-danger">Retour</a>
+	</div>
+	{{ form_end(form) }}

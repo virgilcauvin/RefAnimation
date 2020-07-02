@@ -147,6 +147,11 @@ class Film
      */
     private $selections;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Poste", mappedBy="film")
+     */
+    private $postes;
+
     public function __construct()
     {
         $this->created_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
@@ -158,6 +163,7 @@ class Film
         $this->studios = new ArrayCollection();
         $this->prixes = new ArrayCollection();
         $this->selections = new ArrayCollection();
+        $this->postes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -593,4 +599,34 @@ class Film
         return $this;
     }
 
+    /**
+     * @return Collection|Poste[]
+     */
+    public function getPostes(): Collection
+    {
+        return $this->postes;
+    }
+
+    public function addPoste(Poste $poste): self
+    {
+        if (!$this->postes->contains($poste)) {
+            $this->postes[] = $poste;
+            $poste->setFilm($this);
+        }
+
+        return $this;
+    }
+
+    public function removePoste(Poste $poste): self
+    {
+        if ($this->postes->contains($poste)) {
+            $this->postes->removeElement($poste);
+            // set the owning side to null (unless already changed)
+            if ($poste->getFilm() === $this) {
+                $poste->setFilm(null);
+            }
+        }
+
+        return $this;
+    }
 }
