@@ -147,7 +147,7 @@
 	{% else %}
 		<p>Ce film n'a pas encore été associé à des publics cibles !</p>
 	{% endif %}
-	<div class="container mt-4">
+	{# <div class="container mt-4">
 		Personnels :
 		{% for poste in films.postes %}
 			{% for tech in poste.techniciens %}
@@ -160,5 +160,17 @@
 			{% endfor %}
 			</p>
 		{% endfor %}
-	</div>
+	</div> #}
+	<div class="container mt-4">
+		Personnels :
+		<div>
+		{% for poste in films.postes %}
+			{% if poste.film == films %}
+				<p>{{poste.nom}} - 
+				{% for tech in poste.techniciens %}
+					{{tech.nom}}</p>
+				{% endfor %}
+			{% endif %}
+		{% endfor %}
+		</div>
 </div>{% endblock %}
