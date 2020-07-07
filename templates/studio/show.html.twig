@@ -22,16 +22,15 @@
 	</div>
 	<div class="container mt-4">
 		<p>Description :
-			{{ studios.description | replace({";":"<br/>"})| raw }}</p>
+			{{ studios.description | replace({"\n":"<br/>"})| raw }}</p>
 	</div>
 	<div class="container mt-4">
 		<p>Site officiel :
 			{% if studios.lien %}
-			{% set liens  = studios.lien | split(';') %}			
+			{% set liens  = studios.lien | split('\n') %}
 			{% for lien in liens %}
 				<p><a href="{{ lien }}" target="_blank">{{ lien }}</a></p>
 			{% endfor %}
-			{# <a href="{{ studios.lien }}" target="_blank">{{ studios.lien | replace({";":"<br/>"})| raw }}</a> #}
 			</p>
 		{% else %}
 			<p>Non renseigné !</p>

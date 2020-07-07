@@ -59,7 +59,7 @@
 	</div>
 	<div class="container mt-4">
 		<p>Description :
-			{{ films.description | replace({";":"<br/>"})| raw }}</p>
+			{{ films.description | replace({ "\n" :"<br/>"})| raw }}</p>
 		<p>Année de production :
 			{{ films.anneeDeProduction }}</p>
 		<p>Durée de production :
