@@ -46,7 +46,10 @@
 
 <p>Site officiel :
 	{% if editionFestivals.festival.lien %}
-		<a href="{{ editionFestivals.festival.lien }}" target="_blank">{{ editionFestivals.festival.lien }}</a>
+	{% set liens  = editionFestivals.festival.lien | split('\n') %}
+		{% for lien in liens %}
+			<p><a href="{{ lien }}" target="_blank">{{ lien }}</a></p>
+		{% endfor %}
 	{% else %}
 		<p>Non renseigné !</p>
 	{% endif %}

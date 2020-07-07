@@ -23,7 +23,7 @@
 	</div>
 	<div class="container mt-4">
 		<p>Description :
-			{{ festivals.description }}</p>
+			{{ festivals.description | replace({"\n":"<br/>"})| raw}}</p>
 		<p>Année de lancement :
 			{{ festivals.anneeLancement }}</p>
 		<p>Fréquence :
@@ -36,7 +36,10 @@
 			{% endif %}
 		</p>
 		<p>Site officiel :
-			<a href="{{ festivals.lien }}" target="_blank">{{ festivals.lien }}</a>
+		{% set liens  = festivals.lien | split('\n') %}
+		{% for lien in liens %}
+			<p><a href="{{ lien }}" target="_blank">{{ lien }}</a></p>
+		{% endfor %}
 		</p>
 		<div>
 			<p>Editions de l'événement :

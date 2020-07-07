@@ -22,12 +22,15 @@
 	</div>
 	<div class="container mt-4">
 		<p>Description :
-			{{ studios.description }}</p>
+			{{ studios.description | replace({"\n":"<br/>"})| raw }}</p>
 	</div>
 	<div class="container mt-4">
 		<p>Site officiel :
 			{% if studios.lien %}
-				<a href="{{ studios.lien }}" target="_blank">{{ studios.lien }}</a>
+			{% set liens  = studios.lien | split('\n') %}
+			{% for lien in liens %}
+				<p><a href="{{ lien }}" target="_blank">{{ lien }}</a></p>
+			{% endfor %}
 			</p>
 		{% else %}
 			<p>Non renseigné !</p>
@@ -57,18 +60,28 @@
 			{% endfor %}
 		</div>
 	</div>
-	<div class="container mt-4">
-		Personnels :
-		{% for tech in studios.techniciens %}
-			<p>{{ tech.nom }} - 
-				{% for poste in tech.postes %}
-					{% for studio in poste.film.studios %}
-						{% if studio == studios %}
-							{{ poste.nom }} - {{ poste.film.nom }}
-						{% endif %}
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Personne</th>
+				<th>Role</th>
+				<th>Film</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for tech in studios.techniciens %}
+					{% for poste in tech.postes %}
+						{% for studio in poste.film.studios %}
+							{% if studio == studios %}
+							<tr>
+								<td>{{ tech.nom }}</td>
+								<td>{{ poste.nom }}</td>
+								<td>{{ poste.film.nom }}</td>
+							</tr>
+							{% endif %}
+						{% endfor %}
 					{% endfor %}
-				{% endfor %}
-			</p>
-		{% endfor %}
-	</div>
+			{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}
