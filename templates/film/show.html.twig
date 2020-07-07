@@ -59,7 +59,7 @@
 	</div>
 	<div class="container mt-4">
 		<p>Description :
-			{{ films.description }}</p>
+			{{ films.description | replace({";":"<br/>"})| raw }}</p>
 		<p>Année de production :
 			{{ films.anneeDeProduction }}</p>
 		<p>Durée de production :
@@ -147,25 +147,11 @@
 	{% else %}
 		<p>Ce film n'a pas encore été associé à des publics cibles !</p>
 	{% endif %}
-	{# <div class="container mt-4">
-		Personnels :
-		{% for poste in films.postes %}
-			{% for tech in poste.techniciens %}
-				<p>{{tech.nom}} - 
-				{% for poste in tech.postes %}
-					{% if poste.film == films %}
-						{{poste.nom}} - 
-					{% endif %}
-				{% endfor %}
-			{% endfor %}
-			</p>
-		{% endfor %}
-	</div> #}
 	<div class="container mt-4">
 		Personnels :
 		<div>
 		{% for poste in films.postes %}
-			{% if poste.film == films %}
+			{% if poste.film == films and poste.techniciens is not empty %}
 				<p>{{poste.nom}} - 
 				{% for tech in poste.techniciens %}
 					{{tech.nom}}</p>
