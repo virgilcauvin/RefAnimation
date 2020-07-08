@@ -12,6 +12,7 @@ use App\Repository\PrixRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\TypeFestivalRepository;
 use App\Repository\EditionFestivalRepository;
+use App\Repository\FestivalRepository;
 use App\Repository\FilmRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,12 +32,13 @@ class AdminEditionFestivalController extends AbstractController
      */
     private $em;
 
-    public function __construct(EditionFestivalRepository $repository, TypeFestivalRepository $typeFestRepo, PrixRepository $prixRepo,FilmRepository $filmRepo, EntityManagerInterface $em)
+    public function __construct(EditionFestivalRepository $repository, FestivalRepository $festivalRepo, TypeFestivalRepository $typeFestRepo, PrixRepository $prixRepo,FilmRepository $filmRepo, EntityManagerInterface $em)
     {
         $this->repository = $repository;
         $this->typeFestRepo = $typeFestRepo;
         $this->prixRepo = $prixRepo;
         $this->filmRepo = $filmRepo;
+        $this->festivalRepo = $festivalRepo;
         $this->em = $em;
     }
 
@@ -51,54 +53,54 @@ class AdminEditionFestivalController extends AbstractController
             'editionFestivals' => $editionFestivals
         ]);
     }
-
+    
     /**
      * @Route("/admin/editionFestivalLatest", name="admin.editionFestival.latest")
      */
-    public function indexLatest()
+    /*public function indexLatest()
     {
         $editionFestivals = $this->repository->findLatest();
         return $this->render('admin/editionFestival/index.html.twig', [
             'controller_name' => 'AdminEditionFestivalController',
             'editionFestivals' => $editionFestivals
         ]);
-    }
+    }*/
 
     /**
      * @Route("/admin/editionFestivalOldest", name="admin.editionFestival.oldest")
      */
-    public function indexOldest()
+    /*public function indexOldest()
     {
         $editionFestivals = $this->repository->findOldest();
         return $this->render('admin/editionFestival/index.html.twig', [
             'controller_name' => 'AdminEditionFestivalController',
             'editionFestivals' => $editionFestivals
         ]);
-    }
+    }*/
 
     /**
      * @Route("/admin/editionFestivalABOrder", name="admin.editionFestival.aBOrder")
      */
-    public function indexABOrder()
+    /*public function indexABOrder()
     {
         $editionFestivals = $this->repository->findByABorder();
         return $this->render('admin/editionFestival/index.html.twig', [
             'controller_name' => 'AdminEditionFestivalController',
             'editionFestivals' => $editionFestivals
         ]);
-    }
+    }*/
 
     /**
      * @Route("/admin/editionFestivalZYOrder", name="admin.editionFestival.zYOrder")
      */
-    public function indexZYOrder()
+    /*public function indexZYOrder()
     {
         $editionFestivals = $this->repository->findByZYOrder();
         return $this->render('admin/editionFestival/index.html.twig', [
             'controller_name' => 'AdminEditionFestivalController',
             'editionFestivals' => $editionFestivals
         ]);
-    }
+    }*/
 
     /**
      *  @Route("/admin/editionFestival/ajouter", name="admin.editionFestival.new")
@@ -109,12 +111,15 @@ class AdminEditionFestivalController extends AbstractController
         $editionFestival->setUpdatedAt(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
         $form = $this->createForm(EditionFestivalType::class, $editionFestival);
         $form->handleRequest($request);
+        $id = $request->query->get('id');
+        $festival = $this->festivalRepo->find($id);
+        $editionFestival->setFestival($festival);
         
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($editionFestival);
             $this->em->flush();
             $this->addFlash('success', 'L\'édition de festival a bien été créé !');
-            return $this->redirectToRoute('admin.editionFestival.index');
+            return $this->redirectToRoute('admin.festival.index');
         }
 
         $typeFestival = new TypeFestival();
@@ -147,7 +152,7 @@ class AdminEditionFestivalController extends AbstractController
             $editionFestival->setUpdatedAt(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
             $this->em->flush();
             $this->addFlash('success', 'L\'édition du festival a bien été modifié !');
-            return $this->redirectToRoute('admin.editionFestival.index');
+            return $this->redirectToRoute('admin.festival.index');
         }
 
         $typeFestival = new TypeFestival();
@@ -177,7 +182,7 @@ class AdminEditionFestivalController extends AbstractController
             $this->em->remove($editionFestival);
             $this->em->flush(); 
             $this->addFlash('success', 'L\'edition festival a bien été supprimé !');
-        return $this->redirectToRoute('admin.editionFestival.index');
+        return $this->redirectToRoute('admin.festival.index');
     }
 
     /**

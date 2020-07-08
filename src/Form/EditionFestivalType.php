@@ -26,7 +26,7 @@ class EditionFestivalType extends AbstractType
             ->add('pays')
             ->add('NbLieuProjection')
             ->add('typeFestivals', EntityType::class,['class'=>TypeFestival::class, 'choice_label'=>'nom', 'multiple'=>true, 'required'=>false])
-            ->add('festival',EntityType::class,['class'=>Festival::class,'choice_label'=>'nom'])
+            /* ->add('festival',EntityType::class,['class'=>Festival::class,'choice_label'=>'nom']) */
             ->add('imageFile', FileType::class, ['required' => false])
             ->add('Prixes', EntityType::class,['class'=>Prix::class, 'choice_label' => 'nom', 'multiple'=>true, 'required'=>false])
         ;
