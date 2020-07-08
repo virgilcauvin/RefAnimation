@@ -38,7 +38,8 @@
 						{# <td>{{ festival.nom }}</td> #}
 						<td>{{ editionFestival.id }}
 							-
-							{{ editionFestival.nom }}</td>
+							{{ editionFestival.nom }}
+						</td>
 						<td>
 							<a href="{{ path('admin.editionFestival.edit', {id: editionFestival.id}) }}" class="btn btn-secondary">Editer</a>
 							<form method="post" action="{{ path('admin.editionFestival.delete', {id: editionFestival.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer {{ editionFestival.id }} ?')" style="display: inline-block">

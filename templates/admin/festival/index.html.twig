@@ -1,6 +1,6 @@
 {% extends 'adminBase.html.twig' %}
 
-{% block title %}Gérer les films
+{% block title %}Gérer les festivals
 {% endblock %}
 
 {% block body %}
@@ -11,16 +11,24 @@
 			<div class="alert alert-success">
 				{{ message }}
 			</div>
-			
 		{% endfor %}
-
+		<div class="text-right mb-2">
+			<a href="{{ path('admin.festival.new') }}" class="btn btn-primary">Ajouter un nouveau festival</a>
+			<a href="{{ path('admin.index') }}" class="btn btn-danger">Retour</a>
+		</div>
 		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>Vignette</th>
-					<th>Titre  <a href="{{ path('admin.festival.aBOrder') }}">↑</a><a href="{{ path('admin.festival.zYOrder') }}">↓</a> </th>
-					<th>Actions</th>
-					<th>Mise à jour <a href="{{ path('admin.festival.latest') }}">↑</a><a href="{{ path('admin.festival.oldest') }}">↓</a></th>
+					<th>Titre
+						<a href="{{ path('admin.festival.aBOrder') }}">↑</a>
+						<a href="{{ path('admin.festival.zYOrder') }}">↓</a>
+					</th>
+					<th>Mise à jour
+						<a href="{{ path('admin.festival.latest') }}">↑</a>
+						<a href="{{ path('admin.festival.oldest') }}">↓</a>
+					</th>
+					<th>Editions</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -28,27 +36,89 @@
 					<tr>
 						<td>
 							{% if festival.filename %}
-								<img src="{{ vich_uploader_asset(festival, 'imageFile') | imagine_filter('small') }}" alt="card-img-top" style="width: 30%; height:auto;">
+								<img src="{{ vich_uploader_asset(festival, 'imageFile') | imagine_filter('medium') }}" alt="card-img-top" style="width: auto; height:30%;">
 							{% else %}
-								<img src="{{ '/images/festivals/empty.jpg' | imagine_filter('small') }}" alt="card-img-top" style="width: 30%; height:auto;">
+								<img src="{{ '/images/festivals/empty.jpg' | imagine_filter('small') }}" alt="card-img-top" style="width: auto; height:50%;">
 							{% endif %}
 						</td>
-						<td>{{ festival.nom }}</td>
 						<td>
-                            <a href="{{ path('admin.festival.edit', {id: festival.id}) }}" class="btn btn-secondary">Editer</a>
-							<form method="post" action="{{ path('admin.festival.delete', {id: festival.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer {{ festival.nom }} ?')" style="display: inline-block">
-								<input type="hidden" name="_method" value="DELETE">
-								<button class="btn btn-danger">Supprimer</button>
-							</form>
-                        </td>
+							<div>
+								<h5>{{ festival.nom }}</h5>
+							</div>
+							<div>
+								<div class="mb-2">
+									<a href="{{ path('admin.editionFestival.new', {id: festival.id}) }}" class="btn btn-primary">Ajouter une edition</a>
+								</div>
+								<div>
+									<a href="{{ path('admin.festival.edit', {id: festival.id}) }}" class="btn btn-secondary">Editer</a>
+									<form method="post" action="{{ path('admin.festival.delete', {id: festival.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer {{ festival.nom }} ?')" style="display: inline-block">
+										<input type="hidden" name="_method" value="DELETE">
+										<button class="btn btn-danger">Supprimer</button>
+									</form>
+								</div>
+							</div>
+						</td>
 						<td>{{ festival.updated_at | date("d/m/Y H:i")}}</td>
+						<td>
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Vignette</th>
+										<th>Titre
+											{# <a href="{{ path('admin.editionFestival.aBOrder') }}">↑</a>
+											<a href="{{ path('admin.editionFestival.zYOrder') }}">↓</a> #}
+										</th>
+										{# <th>Actions</th> #}
+										<th>Mise à jour
+											{# <a href="{{ path('admin.editionFestival.latest') }}">↑</a>
+																						<a href="{{ path('admin.editionFestival.oldest') }}">↓</a> #}
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for edition in festival.editionFestivals %}
+										{% if edition %}
+
+											<tr>
+												<td>
+													{% if edition.filename %}
+														<img src="{{ vich_uploader_asset(edition, 'imageFile') | imagine_filter('small') }}" alt="card-img-top" style="width: auto; height:50%;">
+													{% else %}
+														<img src="{{ '/images/editions/empty.jpg' | imagine_filter('small') }}" alt="card-img-top" style="width: auto; height:50%;">
+													{% endif %}
+												</td>
+												<td>
+													<div>
+														{{ edition.nom }}
+													</div>
+													<div>
+														<a href="{{ path('admin.editionFestival.edit', {id: edition.id}) }}" class="btn btn-secondary">Editer</a>
+														<form method="post" action="{{ path('admin.editionFestival.delete', {id: edition.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer {{ edition.nom }} ?')" style="display: inline-block">
+															<input type="hidden" name="_method" value="DELETE">
+															<button class="btn btn-danger">Supprimer</button>
+														</form>
+													</div>
+												</td>
+												<td>
+													{{ edition.updatedAt | date("d/m/Y H:i")}}
+												</td>
+											</tr>
+										{% endif %}
+										{% else %}
+										<tr>
+										<td>
+											<p>Aucune edition</p>
+										</td>
+										<td></td>
+										<td></td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>
 		</table>
-		<div class="text-right">
-			<a href="{{ path('admin.festival.new') }}" class="btn btn-primary">Ajouter un nouveau festival</a>
-			<a href="{{ path('admin.index') }}" class="btn btn-danger">Retour</a>
-		</div>
 	</div>
 {% endblock %}

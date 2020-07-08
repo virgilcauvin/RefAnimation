@@ -2,44 +2,75 @@
 	{{ form_start(form) }}
 	<div class="form-row">
 		<div class="col-12">
-			{{ form_label(form.byText) }}
-			{{ form_widget(form.byText) }}
-			{{ form_errors(form.byText) }}
+			<div>
+				{{ form_label(form.byText) }}
+				{{ form_widget(form.byText) }}
+				{{ form_errors(form.byText) }}
+			</div>
+			{% if current_menu is defined and current_menu == 'film' %}
+				<div>
+					<a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+						Recherche avancée
+					</a>
+					<div class="collapse" id="collapseExample">
+						<div class="row mt-1">
+							<div class="col">
+								{# {{ form_row(form.minAnnee) }} #}
+								{{ form_label(form.minAnnee) }}
+								{{ form_widget(form.minAnnee) }}
+								{{ form_errors(form.minAnnee) }}
+							</div>
+							<div class="col">
+								{{ form_row(form.maxAnnee) }}
+							</div>
+							<div class="col">
+								{{ form_row(form.byMinDuree) }}
+							</div>
+							<div class="col">
+								{{ form_row(form.byMaxDuree) }}
+							</div>
+							<div class="row">
+								<div class="col">
+									{{ form_row(form.byTraduitFr) }}
+								</div>
+								<div class="col">
+									{{ form_row(form.bySoustitresFr) }}
+								</div>
+								<div class="col">
+									{{ form_row(form.byPublicCible) }}
+								</div>
+								<div class="col">
+									{{ form_label(form.byLangue) }}
+									{{ form_widget(form.byLangue) }}
+									{{ form_errors(form.byLangue) }}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endif %}
+			<div hidden>
+				{{ form_rest(form) }}
+			</div>
 		</div>
-		<div class="row">
-			<div class="col">
-				{{ form_row(form.minAnnee) }}
-			</div>
-			<div class="col">
-				{{ form_row(form.maxAnnee) }}
-			</div>
-			<div class="col">
-				{{ form_row(form.byMinDuree) }}
-			</div>
-			<div class="col">
-				{{ form_row(form.byMaxDuree) }}
-			</div>
-			<div class="row">
-				<div class="col">
-					{{ form_row(form.byTraduitFr) }}
-				</div>
-				<div class="col">
-					{{ form_row(form.bySoustitresFr) }}
-				</div>
-				<div class="col">
-					{{ form_row(form.byPublicCible) }}
-				</div>
-				<div class="col">
-
-					{{ form_label(form.byLangue) }}
-					{{ form_widget(form.byLangue) }}
-					{{ form_errors(form.byLangue) }}
-				</div>
-			</div>
-		</div>
-		<div class="col-12">
+		<div class="col-12 mt-2">
 			<button class="btn btn-primary">Rechercher</button>
 		</div>
 	</div>
 	{{ form_end(form) }}
 </div>
+
+{# <p>
+	<a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+		Link with href
+	</a>
+	<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+		Button with data-target
+	</button>
+</p>
+<div class="collapse" id="collapseExample">
+	<div class="card card-body">
+		Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+	</div>
+</div>
+ #}

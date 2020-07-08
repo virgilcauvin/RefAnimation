@@ -19,17 +19,18 @@
 						{% else %}
 							<img src="{{ '/images/festivals/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
 						{% endif %}
-
 						<div class="card-body">
 							<h5 class="card-title">
 								<a href="{{ path('festival.show', {id: festival.id, slug: festival.slug}) }}">{{ festival.nom }}</a>
 							</h5>
 							<p class="card-text">{{ festival.description | slice(0,50) }}...</p>
 							<div class="text-primary">
-								- Ville : {{ festival.ville }}
+								- Ville :
+								{{ festival.ville }}
 							</div>
 							<div class="text-primary">
-								- Pays : {{ festival.pays }}
+								- Pays :
+								{{ festival.pays }}
 							</div>
 						</div>
 					</div>
@@ -37,4 +38,26 @@
 			{% endfor %}
 		</div>
 	</div>
+
+		<div class="container">
+			<div class="row flex">
+				{% for edition in edFest %}
+					<div class="col-3">
+						<div class="card">
+							{% if edition.filename %}
+								<img src="{{ vich_uploader_asset(edition, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+							{% else %}
+								<img src="{{ '/images/editions/empty.jpg' | imagine_filter('thumb') }}" alt="card-img-top" style="width: 100%; height:auto;">
+							{% endif %}
+
+							<div class="card-body">
+								<h5 class="card-title">
+									<a href="{{ path('festival.show', {id: edition.id, slug: edition.slug}) }}">{{ edition.nom }}</a>
+								</h5>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
 {% endblock %}
